@@ -112,38 +112,7 @@ export class LandingComponent implements OnInit {
   }
  
   
- @HostListener('window:resize', ['$event'])
-  onResize(event) {
-	
-      if (event.target.innerHeight > event.target.innerWidth) {
-        this.removeModalExtraBackdrops();
- 
-          this.showWebsite = false;
-      } else {
-	
-        this.showWebsite = true;
-      }
-    
-  }
 
-
-  removeModalExtraBackdrops()
-{
-  var eleBody = document.getElementsByTagName('body');
-  
-
-  if (eleBody && eleBody.length > 0) {
-	  this.currentUser="hello";
-    eleBody.item(0).classList.remove("modal-open");
-    var modalBackdrop = document.getElementsByClassName('modal-backdrop');
-    if (modalBackdrop && modalBackdrop.length > 0) {
-      for (var i = 0; i < modalBackdrop.length; i++) {
-        modalBackdrop.item(i).remove();
-      }
-    }
-  }
-}
-  
   setActiveMode(mode) {
       switch (mode) {
         case "login":
