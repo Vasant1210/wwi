@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://admin.theliveevents.com/api/public/api',
-  imageUrl: 'https://admin.theliveevents.com/admin/public/api',
+  apiUrl: 'https://save2rent.com/event/api/public/api',
+  imageUrl: 'https://save2rent.com/event/admin/public/api',
   //notificationServer: 'https://15.206.112.131:9000',
   //chatServer: 'https://15.206.112.131:3000',
   notificationServer: 'https://notification.coup.digital/',
