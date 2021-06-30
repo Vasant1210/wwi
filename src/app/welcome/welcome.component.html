@@ -1,0 +1,16 @@
+<app-app-loader [loading]="loading"></app-app-loader>
+<div id="app">
+  <main class="main-section" *ngIf="webcast">
+ 
+      <ng-container   *ngIf="webcast && webcast.detail &&  webcast.detail.ornt_video" >
+        <video playsinline="playsinline" id="videoPlayer" class="video-player" (timeupdate)="enableSkip($event)" muted allow="autoplay" #videoPlayer>
+          <source src="{{webcast.detail.ornt_video}}" type="video/mp4">
+        </video>
+      </ng-container>
+ <audio *ngIf="showMusic === true" src="https://admin.theliveevents.com/admin/public/{{data}}"></audio>
+<img *ngIf="showMusic === true" (click)="onmusic()" id="button" src="/assets/images/Mute.svg">
+<img *ngIf="showMusic === false" (click)="onvideomusic()" id="vidbutton" src="/assets/images/Mute.svg">
+<a *ngIf="webcast && allowSkip" class="btn btn-transparent" routerLink="/{{this.webcast.webcast_id}}/lobby">Skip</a>
+  </main>
+  </div>
+

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="23" viewBox="0 0 24 23">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="send_chat.png_copy" data-name="send_chat.png copy" class="cls-1" d="M21.341,9.548L4.989,1.634A2.168,2.168,0,0,0,2.032,4.391l2.555,6.385h17.85A2.15,2.15,0,0,0,21.341,9.548ZM4.586,12.221L2.032,18.608a2.168,2.168,0,0,0,2.957,2.759L21.341,13.45a2.15,2.15,0,0,0,1.1-1.228H4.586Z"/>
+</svg>

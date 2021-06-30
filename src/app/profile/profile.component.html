@@ -1,0 +1,105 @@
+  <div class="w-100 d-flex  justify-content-xs-center " [ngClass]="{'justify-content-sm-end': mode == 'new','justify-content-sm-center': mode != 'new'}" *ngIf="cform">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" [ngClass]="{loginEditForm: mode != 'new'}" class="loginRegForm profileForm d-md-flex d-block">
+      <input type="file" #profilepic style="opacity:0;height:0px;width:0px" value="" (change)="onFileChange($event)" />
+      <div class="uploadProfilePic">
+        <button type="button" class="add-profile-image mb-3" (click)="uploadProfilePic()">
+          <span>
+            <img src="assets\images\add_photo_icon.png"  *ngIf="imageSrc ==''" />
+            <img [src]="imageSrc" class="img-fluid" *ngIf="imageSrc">
+
+            <span class="d-block mt-md-2 mt-2 changPicbtn">
+              {{imageSrc == '' ? 'ADD' : 'CHANGE'}} PHOTO
+            </span>
+            <span *ngIf="submitted" class="invalid-feedback d-block">
+              <!--<span *ngIf="checkError('profile_pic','required')">required</span>-->
+            </span>
+          </span>
+        </button>
+
+      </div>
+
+      <div class="card  box-shadow login-registered-card">
+        <a href="javascript:void(0);" class="close-icon" data-dismiss="modal" >
+          <img src="./assets/images/close-icon.png" alt="Close Button" />
+        </a>
+        <h5 class="card-title" *ngIf="mode=='new'">Thank you for Registering,</h5>
+        <p class="card-title-small" *ngIf="mode=='new'">Let’s Create your profile</p>
+        <p class="card-title-small" *ngIf="mode !='new'">Edit profile</p>
+        <div class="ps directive-scroll popup_scoll" [perfectScrollbar]="{ suppressScrollX: true }" [disabled]="isMobile?true:false">
+          <div *ngIf="cform.fields && cform.fields.length > 0">
+            <div class="row">
+              <div class="col-md-6" *ngFor="let field of cform.fields">
+                <div [ngSwitch]="field.type" *ngIf="field.type != 'file'">
+                  <div class="form-group" *ngSwitchCase="'select'">
+                    <label class="font-weight-bold" for="{{field.fldname}}">{{field.label}}<span *ngIf="field.required == 'true'">*</span></label>
+                    <select class="form-control" (change)="changeOption($event,field.fldname)">
+                      <option value="" disabled selected>Choose your {{field.placeholder}}</option>
+                      <option *ngFor="let option of getOptionArray(field.options)" [selected]="isSelected(field.value,option)" [ngValue]="option">{{option}}</option>
+                    </select>
+                    <input type="text" formControlName="{{field.fldname}}" [ngClass]="showHideOthers(field.fldname)" class="form-control mt-2" placeholder="{{field.placeholder}}" />
+                    <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback error-text d-block mb-2">
+                      <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                    </div>
+                  </div>
+                  <div class="mb-4" *ngSwitchCase="'radio'">
+                    <label class="font-weight-bold">{{field.label}}<span *ngIf="field.required == 'true'">*</span></label>
+                    <div *ngFor="let option of getOptionArray(field.options)" class="mr-2 mt-1 form-check">
+                      <input type="{{field.type}}" name="{{field.fldname}}" formControlName="{{field.fldname}}" value="{{option}}" class="form-check-input" placeholder="{{field.placeholder}}" />
+                      <label class="form-check-label " for="{{option}}">{{option}}</label>
+                    </div>
+                    <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback d-block mb-2">
+                      <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                    </div>
+                  </div>
+                  <div class="mb-4 form-check" *ngSwitchCase="'checkbox'">
+                    <input type="{{field.type}}" formControlName="{{field.fldname}}" value="{{field.label}}" class="form-check-input" placeholder="{{field.placeholder}}" />
+                    <label class="form-check-label" for="{{field.fldname}}">{{field.label}}<span *ngIf="field.required == 'true'">*</span></label>
+                    <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback d-block">
+                      <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngSwitchCase="'textarea'">
+                    <label class="font-weight-bold" for="{{field.fldname}}">{{field.label}}<span *ngIf="field.required == 'true'">*</span></label>
+                    <textarea formControlName="{{field.fldname}}" class="form-control" placeholder="{{field.placeholder}}" rows="3"></textarea>
+                    <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback d-block">
+                      <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                      <div *ngIf="field.type== 'email' && checkError(field.fldname,'email')">{{field.label}} is invalid</div>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngSwitchCase="'number'">
+                    <label class="font-weight-bold" for="{{field.fldname}}">{{field.label}}<span *ngIf="field.required == 'true'">*</span></label>
+                    <input type="number" ng-disabled="field.disabled === true" formControlName="{{field.fldname}}" class="form-control" placeholder="{{field.placeholder}}" />
+                    <div *ngIf="submitted" class="invalid-feedback error-text d-block">
+                      <div *ngIf="submitted && !showValidationSummary && checkError(field.fldname,'required')">{{field.label}} is required</div>
+                      <div *ngIf="field.label == 'Age' && checkError(field.fldname,'max')">{{field.label}} should be less than 150</div>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngSwitchDefault>
+                    <label class="font-weight-bold" for="{{field.fldname}}">{{field.label}}<span *ngIf="field.required == 'true'">*</span></label>
+                    <input type="{{field.type}}" ng-disabled="field.disabled === true" formControlName="{{field.fldname}}" class="form-control" placeholder="{{field.placeholder}}" />
+                    <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback error-text d-block">
+                      <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                      <div *ngIf="field.type== 'email' && checkError(field.fldname,'email')">{{field.label}} is invalid</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div *ngIf="error" class="error-text mt-3 mb-0">{{error}}</div>
+			  <div *ngIf="success" class="error-text mt-3 mb-0">{{success}}</div>
+              <div *ngIf="submitted && profileForm.invalid" class="alert alert-danger mt-3 mb-0">Please enter your mandatory fields or correct values</div>
+            </div>
+            <div class="text-center pt-2">
+              <button [disabled]="loading" class="btn-submit">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Submit
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>

@@ -1,0 +1,61 @@
+<div class="loader-box" *ngIf="loading">  
+    <div>
+    <div class="loader">Loading...</div>
+    <span class="d-block mt-4">Wait Page in loading</span>
+</div>
+</div>
+<div id="app">
+    <main class=" main-section">
+        <div class="container" >
+        <div class="row justify-content-center align-items-center">
+            <div *ngIf="this.banner_image != ''" class="col-lg-7 ">
+                <div  class="text-center" >
+                    <img src="{{this.banner_image}}"  class="img-fluid d-inline" alt="">
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card border-0">
+                    <div class="card-body" *ngIf="page_mode == 'livesoon'">
+                        <div class="form-group mt-2 justify-content-center">    
+                        <h1 *ngIf="cform" class="text-center heading-main mb-2 mb-2 mt-2" [style.color]="theme_color">{{cform.title}}</h1>
+                        <h3 *ngIf="cform" class="text-center heading-main mb-2 mb-4 mt-2" [style.color]="theme_color">We Will be Live soon</h3>
+                        <div *ngIf="webcast" class="form-group text-center">
+                            <label for="webcast_id"><b>Start Date</b>: {{webcast.start_datetime}}</label>
+                        </div>
+                        <div *ngIf="webcast" class="text-center form-group">
+                            <label for="webcast_id"><b>Duration</b>: {{webcast.duration}} minutes</label>
+                        </div>
+                        <a *ngIf="this.register_url" target="_blank" class="btn btn-block btn-light" href="{{this.register_url}}">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Register Now
+                        </a>    </div>
+                    </div>
+                    <div class="card-body" *ngIf="page_mode=='thankyou'">
+                      <div class="text-center py-4">
+                        <span class="h1 text-success my-4"><i class="fa fa-check"></i></span>
+                        <h2 class="text-center h6 font-weight-bold">Thank you for your participation</h2>
+                        <h2 class="text-center h6 font-weight-bold">The Webcast has ended</h2>
+                        <h2 *ngIf="webcast && webcast.enable_archive==1" class="text-center h6 font-weight-bold">Recorded webcast will be vailable 24 hours after event end</h2>
+                        <button type="button" (click)="logout()" [disabled]="loading" class="btn btn-block btn-primary mb-4 mt-4" [ngStyle]="theme_background">
+                          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                          Logout
+                        </button>
+                        <span class='mt-4'>Or You will be auto login in 5 seconds</span>
+
+                      </div>
+                    </div>    
+                    <div class="card-body" *ngIf="page_mode=='completed'">
+                        <div class="text-center py-4"> 
+                                <span class="h1 text-success my-4"><i class="fa fa-check"></i></span>
+                                <h2 class="text-center h6 font-weight-bold">The Webcast has ended</h2>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+
+        </div>  
+    </main>
+</div>

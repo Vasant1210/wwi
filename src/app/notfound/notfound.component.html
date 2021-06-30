@@ -1,0 +1,25 @@
+<div class="flex-center position-ref full-height">
+    <div class="content">
+        <div class="title m-b-md">
+            Web conferencing Solution
+        </div>
+
+        <div class="form-group">
+            <label for="webcast_id">Webcast does not exists</label>
+        </div>
+        <div class="form-group">
+            <label for="webcast_id">Enter the Webcast id shared on the confirmation email</label>
+            <input type="text" [(ngModel)]="webcast_url" name="webcast_url" class="form-control"/>
+        </div>
+        <div>
+            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+        </div>
+
+        <div class="text-center pt-2">
+        <button [disabled]="loading" class="btn btn-primary" (click)="findWebCast()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Enter to webcast
+        </button>
+        </div>
+    </div>
+</div>

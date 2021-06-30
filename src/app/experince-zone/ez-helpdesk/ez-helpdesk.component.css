@@ -1,0 +1,18 @@
+.show{
+    display:block;
+}
+
+.hide
+{
+    display:none;
+}
+
+.stallHelpdesk iframe
+{
+    position:absolute;
+    bottom:2vh;
+    right:4vw;
+    height:70vh;
+    width:30vw
+}
+

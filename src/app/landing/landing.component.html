@@ -1,0 +1,98 @@
+<app-app-loader [loading]="loading"></app-app-loader>
+<div class="rotate-msg" *ngIf="showWebsite == false">
+    <img src="/assets/images/rotate.svg" alt="">
+      Please rotate your device to landscape mode.
+  </div>
+<header *ngIf="!currentUser">
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand pl-0 pr-0 navbar-light bg-none">
+      <a class="navbar-brand" href="javascript:void(0);">
+        <img *ngIf="webcast" src="{{webcast.logo}}" class="img-fluid d-inline brand-logo" alt="">
+      </a>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav " *ngIf="showMenu === true">
+          <li class="nav-item d-none d-md-inline " *ngIf="activeMode == 'timer' && webcast?.detail">
+            <button class="nav-link navigation-button" SimpleSmoothScroll [scrollTo]="'aboutUs'" [duration]="500" style="color:white">ABOUT THE EVENT</button>
+          </li>
+          <li class="nav-item active" *ngIf="!currentUser && webcast">
+            <button class="nav-link navigation-button" (click)="setActiveMode('login')" style="color:white">Login</button>
+          </li>
+          <li class="nav-item active" *ngIf="!currentUser && webcast">
+            <button class="nav-link  navigation-button" (click)="setActiveMode('register')" style="color:white">Register</button>
+          </li>
+        </ul>
+        <ul class="navbar-nav " *ngIf="showMenu === false">
+          <li class="nav-item " *ngIf="!currentUser && webcast">
+            <a href="javascript:;" (click)="setActiveMode('timer')" class="close-navigation-button">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   xmlns:xlink="http://www.w3.org/1999/xlink"
+                   width="24px" height="24px">
+                <text font-family="Calibri" fill="rgb(255, 255, 255)" font-weight="bold" font-size="24px" x="0px" y="12px">x</text>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+<!-- <div class="container-fluid"> -->
+<!-- <div class="row"> -->
+<!-- <div class="col-md-12"> -->
+  <!-- <iframe src="https://liveevent-registration.herokuapp.com/" frameborder="0" scrolling="no" id="iFrame"></iframe> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<audio *ngIf="showMusic === true" src="https://admin.theliveevents.com/admin/public/{{data}}"></audio>
+<img *ngIf="showMusic === true" (click)="onmusic()" id="button" src="/assets/images/Mute.svg">
+<div id="app">
+  <main class="main-section main-section-with-menu" *ngIf="webcast && theme" [ngStyle]="theme.content_bg_style">
+    <ng-container *ngIf="theme && theme.content_bg_video">
+      <video playsinline="playsinline" id="custom-form-main-body-background-video" class="custom-form-main-body-background-video" [muted]="true" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="{{theme.content_bg_video}}" type="video/mp4">
+      </video>
+    </ng-container>
+    <div class="lading-section">
+      <div *ngIf="theme.content_banner_image" class="">
+        <div class="text-center">
+          <img src="{{theme.content_banner_image}}" class="img-fluid d-inline" alt="">
+        </div>
+      </div>
+      <app-landing-timer *ngIf="activeMode == 'timer'"></app-landing-timer>
+      <div class="d-flex justify-content-lg-end justify-content-md-end justify-content-sm-end justify-content-center w-100">
+        <div class="landing-form-container">
+		
+		
+		
+		
+		
+		
+		
+          <!-- <h1 *ngIf="webcast" class="text-center heading-main mb-2 mb-0 mt-2" [style.color]="theme_color">{{webcast.title}}</h1>--> 
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+          <app-register (linkToLogin)="setActiveMode('login')" *ngIf="activeMode == 'register'"></app-register>
+          <app-login (linkToRegister)="setActiveMode('register')" *ngIf="activeMode == 'login'"></app-login>
+        </div>
+      </div>
+    </div>
+  </main>
+  <section *ngIf="activeMode == 'timer' && webcast?.detail">
+    <div #aboutUs id="aboutUs" class="event_page_section">
+      <h1 class="section-heading">About the Event</h1>
+      <div class="" *ngIf="webcast.detail.about_us" [innerHTML]="webcast.detail.about_us | sanitize: 'html'">
+      </div>
+    </div>
+  </section>
+  <div class="landing-page-about-us" *ngIf="activeMode == 'timer'">
+    <div class="container">
+      Copyright © 2020 All right reserved
+    </div>
+  </div>
+</div>

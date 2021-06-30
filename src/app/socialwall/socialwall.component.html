@@ -1,0 +1,29 @@
+<div class="custom-modal-wrapper">
+  <div class="modal-header">
+    <div class="title-wrapper">
+      <h5 class="modal-title">Social Wall</h5>
+      <a href="javascript:void(0);" class="close-icon" data-dismiss="modal">
+        <img src="./assets/images/close-icon.png" alt="Close Button" />
+      </a>
+    </div>
+    <div class="list-wrapper">
+      <div class="row text-center">
+        <div class="col-lg-12 ">
+          <h5 class="modal-title">{{feedTitle}}</h5>
+        </div>
+      </div>
+      </div>
+    </div>
+        <div class="modal-body">
+          <div class="row justify-content-center">
+            <div class="col-custom-80">
+              <perfect-scrollbar class="popup_scoll_social">
+                <div class="faq-list" *ngIf="feedURL">
+                  <!-- <iframe src='https://www.juicer.io/api/feeds/{{webcast?.detail?.event_social_tag}}/iframe' frameborder='0' width='1000' height='1000' style='display:block;margin:0 auto;'></iframe>-->
+                  <iframe [src]="feedURL | sanitize: 'resourceUrl'" frameborder='0' width='1000' height='1000' style='display:block;margin:0 auto;'></iframe>
+                </div>
+              </perfect-scrollbar>
+            </div>
+          </div>
+        </div>
+      </div>

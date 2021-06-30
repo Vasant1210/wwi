@@ -1,0 +1,21 @@
+<div class="custom-modal-wrapper">
+  <div class="modal-header">
+    <h5 class="modal-title">FAQs</h5>
+    <a href="javascript:void(0);" class="close-icon" data-dismiss="modal" >
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="modal-body">
+    <div class="row justify-content-center">
+      <div class="col-custom-80">
+        <perfect-scrollbar class="popup_scoll">
+          <div class="faq-list" *ngFor="let faq of faqs | async">
+            <h2 class="modal-heading-1">{{faq.question}}</h2>
+            <p>{{faq.answer}}</p>
+          </div>
+        </perfect-scrollbar>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+
+<div class="modal {{showPop  ? 'show modal-open':'fade'}}" style="{{showPop ? 'display: block;':''}}" id="modalMain3" tabindex="-1" *ngIf="showPop">
+  <div class="modal-dialog  bg-none modal-xl" role="document">
+    <div class="modal-content bg-none">
+      <div class="modal-header">
+       </div>
+        <div class="modal-body">
+          <a href="javascript:void(0);" (click)="closePopup()"><app-close-btn></app-close-btn></a>
+          {{message}}
+        </div>
+      </div>
+  </div>
+</div>

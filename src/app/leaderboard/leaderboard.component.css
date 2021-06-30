@@ -1,0 +1,14 @@
+.popup_scoll_leaderboard {
+    max-height: 52vh !important;
+
+   
+}
+@media all and (max-width:992px) {
+    .popup_scoll_leaderboard {
+        overflow-y: auto;
+    }
+   
+}
+.popup_scoll_leaderboard > .ps.ps--active-y > .ps__rail-y {
+    right: -10% !important;
+}

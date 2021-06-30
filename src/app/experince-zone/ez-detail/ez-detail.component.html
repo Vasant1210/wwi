@@ -1,0 +1,133 @@
+<div id="app" class="experience-page" *ngIf="stall" [ngClass]="{'fullPageVideo':enableFullPageMode == true}"> 
+  <main class="wrapper bg3" style="    background-image: linear-gradient(rgba(0, 0, 0, 0.35) 5%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0)),url('{{bgimage}}');">
+    <div class="content" style="background-image: linear-gradient(rgba(0, 0, 0, 0.35) 5%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0))">
+      <div class="stall-wrapper">
+        <div class="video-frame">
+          <video *ngIf="stall && stall.assets && promo_video" (play)="setForcePause(false)" (pause)="setForcePause(true)" (timeupdate)="enableSkip($event)" #videoPlayer width="320" height="240" controls="false" [muted]="true" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="{{promo_video}}" type="video/mp4">
+          </video>
+        </div>
+        <app-ez-resource [gallery]="stall.stall_gallery" (onClose)="closePopups()" (onDetailViewToggle)="onfullPageVideo($event)" *ngIf="action =='resource_popup' && stall.stall_gallery"></app-ez-resource>
+        <app-ez-products [products]="products" (onClose)="closePopups()" *ngIf="action =='products_popup' && products"></app-ez-products>
+        <app-ez-card-exchange [stall]="stall" (onClose)="closePopups()" *ngIf="action =='business_popup' && stall"></app-ez-card-exchange>
+        <!--<app-ez-helpdesk [helpdesk_key]="assets['helpdesk_key']" *ngIf="action =='chat_popup'"></app-ez-helpdesk>-->
+        <ul class="social-icons">
+          <li *ngIf="stall && stall.assets && website_url">
+            <a [href]="website_url" target="_blank"><img src="./assets/images/website.svg" alt=""></a>
+          </li>
+          <li *ngIf="stall && stall.assets && facebook_link">
+            <a [href]="facebook_link" target="_blank"><img src="./assets/images/facebook.svg" alt=""></a>
+          </li>
+          <li *ngIf="stall && stall.assets && twitter_link">
+            <a [href]="twitter_link" target="_blank"><img src="./assets/images/twitter.svg" alt=""></a>
+          </li>
+          <li *ngIf="stall && stall.assets && instagram_link">
+            <a [href]="instagram_link" target="_blank"><img src="./assets/images/instagram.svg" alt=""></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-menu">
+      <ul class="menu_list">
+        <li class="back_to">
+          <a href="javascript:void(0)" (click)="closeStall()">
+            <img src="./assets/images/ez_back_to_lobby.png" alt="">
+            Exit to experience zone
+          </a>
+        </li>
+        <li *ngIf="demo_video">
+          <a href="javascript:void(0)" class="play-icon" (click)="resetCurrentVideo(demo_video)">
+            <label class="icon_svg _16"></label><span>
+              Demo
+              Video
+            </span>
+          </a>
+        </li>
+        <li *ngIf="stall.stall_gallery &&  stall.stall_gallery.length>0">
+          <a href="javascript:void(0)" (click)="open('resource_popup')">
+            <label class="icon_svg _13"></label><span>
+              Resource
+              Hub
+            </span>
+          </a>
+        </li>
+        <li *ngIf="products && products.length >0">
+          <a href="javascript:void(0)" (click)="open('products_popup')">
+            <label class="icon_svg _14"></label><span>
+              Products /
+              Services
+            </span>
+          </a>
+        </li>
+        <li *ngIf="stall && stall.representatives && stall.representatives.length >0">
+          <a href="javascript:void(0)" (click)="open('business_popup')">
+            <label class="icon_svg _15"></label><span>
+              Exchange
+              business card
+            </span>
+          </a>
+        </li>
+        <!--<li *ngIf="isMobile && assets['helpdesk_key']" style="position:relative">
+          <a href="javascript:void(0)" (click)="open('helpdesk_popup')" *ngIf="isMobile ">
+            <label class="icon_svg _6"></label>
+            <span class="notification">Start Chat</span>
+          </a>
+        </li>-->
+        <li *ngIf="assets['helpdesk_key']">
+          <a [href]="assets['helpdesk_key'] | sanitize: 'resourceUrl'" [target]="_blank">
+            <label class="icon_svg _6"></label>
+            <span class="notification">Start Chat</span>
+          </a>
+
+        </li>
+      </ul>
+    </div> <!-- bottom menu -->
+    <div class="popup-overlay" *ngIf="action != ''" (click)="closePopups()"></div>
+    <div class="demoModalVideoPopup" *ngIf="currently_playing_video" id="demoModalVideoPopup" #demoModalVideoPopup tabindex="-1">
+      <div class="bg-none">
+        <div class="bg-none">
+          <div class="">
+            <button type="button"
+                    class="close"
+                    (click)="closeVideoPopup()">
+              <img src="./assets/images/close-icon.png" aria-label="Close" class="img-fluid" />
+            </button>
+          </div>
+          <div class="">
+            <iframe id="gallery_currently_playing_video"
+                    [src]="currently_playing_video | sanitize: 'resourceUrl'"
+                    frameborder="0" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<div class="demoModalVideoPopup" [ngClass]="getStatusClass()" *ngIf="isMobile && assets['helpdesk_key']" id="demoModalhelpdeskPopup" #demoModalhelpdeskPopup tabindex="-1">
+      <div class="bg-none">
+        <div class="bg-none">
+          <div class="">
+            <button type="button"
+                    class="close"
+                    (click)="closeHelpDeskPopup()">
+              <img src="./assets/images/close-icon.png" aria-label="Close" class="img-fluid" />
+            </button>
+          </div>
+          <div class="">
+            <iframe [src]="assets['helpdesk_key'] | sanitize: 'resourceUrl'" id="helpdeskpopup" frameborder="0"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>-->
+    <!--<div class="popup-wrap stall_helpdesk_popup products_popup popup_opened" [ngClass]="getStatusClass()" *ngIf="!isMobile && assets['helpdesk_key']">
+      <div class="_head">
+        <a href="javascript:void(0)" (click)="closeHelpDeskPopup()" class="_close"></a>
+      </div>
+      <div class="_cont">
+        <div class="stallHelpdesk">
+          <a [href]="assets['helpdesk_key'] | sanitize: 'resourceUrl'" target="_blank" [ngClass]="getStatusClass()" frameborder="0"></a>
+        </div>
+      </div>--> <!-- _cont -->
+    <!--</div>-->
+
+  </main>
+</div>

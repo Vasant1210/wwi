@@ -1,0 +1,52 @@
+<div class="modal-header">
+    <div class="title-wrapper">
+        <h5 class="modal-title">Leader Board</h5>
+        <a href="javascript:void(0);" #modalCloseButton data-dismiss="modal" aria-label="Close" class="close-icon">
+          <img src="./assets/images/close-icon.png" alt="Close Button" />
+        </a>
+      </div>
+      <div class="tab-menu-list list-wrapper">
+        <div class="row justify-content-center">
+          <div class="col-lg-10 ">
+            <ul class="nav nav-tabs justify-content-center">             
+              <li class="nav-item">
+                <a class="nav-link active" id="level-tab" data-toggle="tab" href="#levels" role="tab" aria-controls="levels" aria-selected="true">The Levels</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " id="point-tab" data-toggle="tab" href="#point_system" role="tab" aria-controls="point_system" aria-selected="true">Point Systems</a>
+              </li>
+              <li  class="nav-item" *ngIf="leaderboardMaster">
+                <a class="nav-link " id="tnc-tab" data-toggle="tab" href="#tnc" role="tab" aria-controls="tnc" aria-selected="true">T&Cs</a>
+              </li>
+              <li  class="nav-item" *ngIf="leaderboardMaster">
+                <a class="nav-link " id="gift-tab" data-toggle="tab" href="#prizes" role="tab" aria-controls="prizes" aria-selected="true">Prizes</a>
+              </li>            
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body" *ngIf="leaderboardMaster">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 ">
+          <perfect-scrollbar class="popup_scoll_leaderboard">
+            <div id="myTabContent" class="notes tab-content">  
+              <div class="tab-pane active fade show experience-page digital-briefcase" id="levels">
+                <app-lb-levels [userStats]="userStats" [gradeSystem]="leaderboardMaster.grades" ></app-lb-levels>
+              </div> <!--<div class="tab-pane fade show active" id="levels">-->  
+              <div class="tab-pane fade show experience-page digital-briefcase" id="point_system">
+                <app-lb-points  [gradeSystem]="leaderboardMaster.grades"></app-lb-points>
+              </div> <!--<div class="tab-pane fade show active" id="point_system">-->  
+              <div class="tab-pane fade show experience-page digital-briefcase" *ngIf="leaderboardMaster.tnc" id="tnc">
+                <app-lb-terms [tnc]="leaderboardMaster.tnc"></app-lb-terms>
+              </div> <!--<div class="tab-pane fade show active" id="tnc">--> 
+              <div class="tab-pane fade show experience-page digital-briefcase"  *ngIf="leaderboardMaster.gifts" id="prizes">
+                <app-lb-prizes [prizes]="leaderboardMaster.gifts"></app-lb-prizes>
+              </div> <!--<div class="tab-pane fade show active" id="prizes">-->            
+            </div><!--myTabContent-->
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  
+  

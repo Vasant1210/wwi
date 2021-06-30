@@ -1,0 +1,89 @@
+<div class="modal-header">
+  <div class="title-wrapper">
+    <h5 class="modal-title">Gallery</h5>
+    <a href="#modalMain" data-toggle="modal" data-dismiss="modal" aria-label="Close" class="close-icon">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="tab-menu-list list-wrapper">
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-10 ">
+        <ul class="nav nav-tabs justify-content-center" id="galleryTabs" role="tablist">
+          <li class="nav-item" *ngFor="let day of days;let i = index">
+            <a class="{{i == 0 ? 'nav-link active':'nav-link' }}"  id="gallery-tab-{{day}}" data-toggle="tab" href="#gallery-{{day}}" role="tab" aria-controls="gallery-{{day}}" aria-selected="{{i == 0 ? true:false }}">{{"Day "+ day.substring(3)}} </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="modal-body">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 ">
+      <perfect-scrollbar class="popup_scoll">
+        <app-app-loader [loading]="loading"></app-app-loader>
+        <div id="galleryTabContent" class="gallery-list tab-content">
+
+          <div class="{{i == 0 ? 'tab-pane fade show active':'tab-pane fade' }}" role="tabpanel" aria-labelledby="gallery-{{day}}-tab" id="gallery-{{day}}" *ngFor="let day of days ;let i =index">
+            <div *ngIf="day">
+              <div class="inner-tab">
+                <ul class="nav nav-pills mb-3" id="pills-tab-{{day}}" role="tablist">
+                  <li class="nav-item" *ngIf="dayWiseImages && dayWiseImages[day].length>0">
+                    <a class="nav-link text-uppercase" [ngClass]="{'active':dayWiseImages && dayWiseImages[day].length>0}" id="pills-image-tab-{{day}}" data-toggle="pill" href="#pills-image-{{day}}" role="tab" aria-controls="pills-image-{{day}}" aria-selected="true">Images</a>
+                  </li>
+                  <li class="nav-item" *ngIf="dayWiseVideos && dayWiseVideos[day].length>0">
+                    <a class="nav-link text-uppercase" [ngClass]="{'active':(!dayWiseImages || (dayWiseImages && dayWiseImages[day].length <=0))}" id="pills-video-tab-{{day}}" data-toggle="pill" href="#pills-video-{{day}}" role="tab" aria-controls="pills-video-{{day}}" aria-selected="false">Video</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent-{{day}}">
+                  <div class="tab-pane fade" [ngClass]="{'show active':dayWiseImages && dayWiseImages[day].length>0}" id="pills-image-{{day}}" role="tabpanel" aria-labelledby="pills-image-{{day}}-tab">
+
+                    <ul class="agenda-speakers-images" *ngIf="dayWiseImages&& dayWiseImages[day]">
+                      <li *ngFor="let image of dayWiseImages[day];let j = index" (click)="openGallery(day,j)">
+                        <a href="javascript:void(0);" (click)="openGallery(day,j)">
+                          <img src="{{image.thumbnailUrl}}" class="img-fluid" />
+                        </a>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <div class="tab-pane fade" [ngClass]="{'show active':(!dayWiseImages || (dayWiseImages && dayWiseImages[day].length<=0))}" id="pills-video-{{day}}" role="tabpanel" aria-labelledby="pills-video-{{day}}-tab">
+                    <perfect-scrollbar class="popup_scoll">
+                      <ul class="agenda-speakers-videos" *ngIf="dayWiseVideos && dayWiseVideos[day]">
+                        <li *ngFor="let video of dayWiseVideos[day];let j = index">
+                          <img src="{{video.thumbnail}}" class="img-fluid" />
+                          <a href="javascript:void(0);" class="play-icon" (click)="resetCurrentVideo(video.file_name)">
+                            <img src="./assets/images/play-button.png" class="img-fluid" />
+                          </a>
+                        </li>
+                      </ul>
+                    </perfect-scrollbar>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+</div>
+<ng-container *ngIf="days && days.length >0">
+  <ngx-image-gallery [conf]="conf" (onOpen)="galleryOpened($event)"
+(onClose)="galleryClosed()"></ngx-image-gallery>
+</ng-container>
+<ng-container *ngIf="currently_playing_video">
+  <div class="galleryModalVideoPopup" id="galleryModalVideoPopup" #galleryModalVideoPopup *ngIf="currently_playing_video" tabindex="-1">
+    <a href="javascript:void(0);" aria-label="Close" (click)="closeVideoPopup()" class="close-icon">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+    <iframe id="gallery_currently_playing_video"
+            [src]="currently_playing_video | sanitize: 'resourceUrl'"
+            frameborder="0" allowfullscreen>
+    </iframe>
+  </div>
+</ng-container>

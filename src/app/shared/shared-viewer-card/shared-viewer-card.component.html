@@ -1,0 +1,22 @@
+<div class="box" *ngIf="profile">
+  <div class="box-content">
+    <div class="rows-wrap" id="viewercardId-{{profile['Work Phone Number']}}">
+      <div class="box-rows">
+        <img [src]="renderDefaultProfilePic(profile?.profile_pic,profile['Full Name'])" class="profile-icon" alt="">
+      </div>
+      <div class="box-rows">
+        <ul class="card-details">
+          <li class="name" title="{{profile['Full Name']}}">{{profile['Full Name']}}</li>
+          <li *ngIf="profile['Designation']" title="{{profile['Designation']}}">{{profile["Designation"]}}</li>
+          <li *ngIf="!profile['Designation']">&nbsp;</li>
+          <li *ngIf="profile['Company Name']" class="company" title="{{profile['Company Name']}}">{{profile["Company Name"]}}</li>
+          <li *ngIf="!profile['Company Name']" class="company">&nbsp;</li>
+          <li *ngIf="profile['Work Phone Number']" title="{{profile['Work Phone Number']}}">{{profile['Work Phone Number']}}</li>
+          <li *ngIf="!profile['Work Phone Number']">&nbsp;</li>
+          <li *ngIf="profile['Work Email Id']" title="{{profile['Work Email Id']}}">{{profile['Work Email Id']}}</li>
+          <li *ngIf="!profile['Work Email Id']">&nbsp;</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> <!-- box --> 

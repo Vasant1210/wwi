@@ -1,0 +1,274 @@
+<ng-container *ngIf="showWebsite">
+  <header *ngIf="currentUser && webcast" [ngStyle]="{'opacity': headerVisibilty == true ? 1 : 0 }">
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand pl-0 pr-0 navbar-light bg-none">
+        <app-header></app-header>
+
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav ">
+            <!-- Rooms list start-->
+			<li class="nav-item">
+			<a class="nav-link mr-4 dropdown dropdown-toggle" id="navbarDropdown" (click)="onmusic()" href="javascript:void(0);">
+           
+			  <img *ngIf="showMusic === true"  id="button" src="/assets/images/Mute.svg">
+			  <audio *ngIf="showMusic === true" (click)="onmusic()" src="https://admin.theliveevents.com/admin/public/{{data}}"></audio>
+              </a>
+			</li>
+            <li class="nav-item " style="position:relative" *ngIf="currentUser && rooms && rooms.length>0">
+           
+
+		   <a class="nav-link mr-4 dropdown dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="svg-icon room-list main_header_extrarooms "></span>
+              </a>
+              <!-- Button trigger modal -->
+              <div class="dropdown-menu room-dropdown" aria-labelledby="navbarDropdown">
+                <div class="ps directive-scroll" [perfectScrollbar]="scrollConfig">
+                  <div class="posititon-relative">
+                    <ul>
+                      <li *ngFor="let room of rooms">
+                        <a *ngIf="currentUser && webcast" class="dropdown-item" href="javascript:void(0);" (click)="goToRoom(room)" [ngClass]="{disabled:room.status == 'draft'}">{{ room.title}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- Rooms list end-->
+            <li class="nav-item " *ngIf="currentUser">
+              <a class="nav-link mr-4 " href="javascript:void(0);" routerLink="{{this.webcast.webcast_id}}/lobby">
+                <span class="svg-icon main_header_lobbylink home"></span>
+              </a>
+            </li>
+            <li class="nav-item dropdown" *ngIf="currentUser">
+              <app-notification *ngIf="currentUser && webcast"></app-notification>
+            </li>
+
+            <li class="nav-item dropdown" *ngIf="currentUser">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="svg-icon menu  main_header_main_menu"></span>
+              </a>
+              <!-- Button trigger modal -->
+
+
+
+              <div class="dropdown-menu profile-dropdown" aria-labelledby="navbarDropdown">
+                  <div class="profile-box posititon-relative">
+                    <a href="javascript:void(0);" class="close-icon">
+                      <img src="./assets/images/close-icon.png" alt="Close Button" />
+                    </a>
+                    <div class="d-flex profile-header-wrapper">
+                      <div class="profile-image">
+                        <img src="{{profilePic}}" class="img-fluid" />
+                      </div>
+                      <div class="profile-details">
+                        <h2 class="profile-title">{{currentUser?.fullName}}</h2>
+                        <a href="javascript:void(0);" (click)="openModal('profile')" class="view-profile-link" data-toggle="modal"  data-target="#modalMain">View full profile</a>
+                      </div>
+                    </div>
+                  </div>
+                <div class="ps directive-scroll" [perfectScrollbar]="{ suppressScrollX: true }" [disabled]="isMobile?true:false">
+                  <div class="profile-box posititon-relative">
+                    <ul>
+                      <li>
+                        <a *ngIf="currentUser && webcast && webcast.detail && webcast.detail.ornt_video" class="dropdown-item" routerLink="/{{this.webcast.webcast_id}}/welcome" href="javascript:void(0);">Orientation Video</a>
+                      </li>
+
+                      <li>
+                        <a *ngIf="currentUser && webcast" class="dropdown-item" (click)="openModal('faq')" href="javascript:void(0);" data-toggle="modal" data-target="#modalMain">Faqs</a>
+                      </li>
+
+                      <li>
+                        <a *ngIf="currentUser && webcast" class="dropdown-item" (click)="openModal('speaker')" href="javascript:void(0);" data-toggle="modal" data-target="#modalMain">Speakers</a>
+                      </li>
+                      <li>
+                        <a *ngIf="currentUser && webcast" class="dropdown-item" (click)="openModal('agenda')" href="javascript:void(0);" data-toggle="modal" data-target="#modalMain">Agenda</a>
+                      </li>
+                      <li>
+                        <a *ngIf="currentUser && webcast && hasWidget('leaderboard')" class="dropdown-item" (click)="openModal('leaderboard')" href="javascript:void(0);" data-toggle="modal" data-target="#modalMain">leaderboard</a>
+                      </li>
+                      <li>
+                        <a *ngIf="currentUser && webcast && hasWidget('game')" class="dropdown-item" (click)="openModal('game')" href="javascript:void(0);" data-toggle="modal" data-target="#modalMain">Entertainment Zone</a>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <ul>
+                    <li *ngIf="hasWidget('experience_zone')">
+
+                      <a *ngIf="currentUser && webcast" class="dropdown-item" href="javascript:void(0)" routerLink="/{{this.webcast.webcast_id}}/expo">Experience Zone</a>
+                    </li>
+
+                    <li *ngIf="hasWidget('networking_lounge')">
+
+                      <a *ngIf="currentUser && webcast" class="dropdown-item" href="javascript:void(0)" routerLink="/{{this.webcast.webcast_id}}/lounge">Networking Lounge</a>
+                    </li>
+                   <!--<li *ngIf="hasWidget('game')">
+                      <a *ngIf="currentUser && webcast" class="dropdown-item" href="javascript:void(0)" routerLink="/{{this.webcast.webcast_id}}/entertainment">Entertainment Zone</a>
+                    </li>--> 
+                    <li>
+
+                      <a *ngIf="currentUser && webcast" class="dropdown-item" (click)="openModal('briefcase')" href="javascript:void(0);" data-toggle="modal" data-target="#modalMain">
+                        Digital Briefcase
+                      </a>
+                    </li>
+                    <li *ngIf="hasWidget('social_wall')">
+
+                      <a *ngIf="currentUser && webcast" class="dropdown-item"  (click)="openModal('socialwall')" href="javascript:void(0);" data-toggle="modal" data-target="#modalMain">Social Wall</a>
+                    </li>
+                    <li>
+
+                      <a *ngIf="currentUser && webcast" class="dropdown-item" (click)="openModal('gallery')" href="javascript:void(0);" data-toggle="modal" data-target="#modalMain">Gallery</a>
+                    </li>
+
+
+                    <li>
+                      <a class="dropdown-item" href="https://www.qmin.co.in/" target="_blank">QMIN Cafe</a>
+                    </li>
+
+                    <li class="logout-link" *ngIf="currentUser && hasWidget('feedback')">
+                      <a class="dropdown-item d-flex justify-content-between align-items-center" (click)="openFeedbackForm()" href="javascript:void(0);">
+                        <span>
+                          Logout
+                        </span>
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               width="22px" height="22px">
+                            <path fill-rule="evenodd" fill="rgb(128, 80, 21)"
+                                  d="M21.202,18.651 L21.202,3.349 C21.202,1.940 20.060,0.798 18.651,0.798 L3.349,0.798 C1.940,0.798 0.798,1.940 0.798,3.349 L0.798,18.651 C0.798,20.060 1.940,21.202 3.349,21.202 L18.651,21.202 C20.060,21.202 21.202,20.060 21.202,18.651 ZM3.349,19.927 C2.644,19.927 2.074,19.356 2.074,18.651 L2.074,3.349 C2.074,2.644 2.644,2.073 3.349,2.073 L18.651,2.073 C19.356,2.073 19.927,2.644 19.927,3.349 L19.927,18.651 C19.927,19.356 19.356,19.927 18.651,19.927 L3.349,19.927 ZM18.651,16.739 L18.651,5.261 C18.651,4.909 18.366,4.624 18.014,4.624 C17.662,4.624 17.376,4.909 17.376,5.261 L17.376,16.739 C17.376,17.091 17.662,17.376 18.014,17.376 C18.366,17.376 18.651,17.091 18.651,16.739 ZM15.901,11.475 C16.035,11.342 16.091,11.165 16.082,10.990 C16.091,10.815 16.035,10.639 15.901,10.505 L12.087,7.354 C11.836,7.104 11.430,7.104 11.179,7.354 C10.928,7.604 10.928,8.009 11.179,8.259 L13.724,10.362 L3.986,10.362 C3.634,10.362 3.349,10.648 3.349,11.000 C3.349,11.352 3.634,11.638 3.986,11.638 L13.700,11.638 L11.179,13.721 C10.928,13.971 10.928,14.376 11.179,14.626 C11.430,14.876 11.836,14.876 12.087,14.626 L15.901,11.475 Z" />
+                          </svg>
+                        </span>
+                      </a>
+                    </li>
+
+                    <li class="logout-link" *ngIf="currentUser && !hasWidget('feedback')">
+
+                      <a class="dropdown-item d-flex justify-content-between align-items-center" (click)="logout()" href="javascript:void(0);">
+                        <span>
+                          Logout
+                        </span>
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               width="22px" height="22px">
+                            <path fill-rule="evenodd" fill="rgb(128, 80, 21)"
+                                  d="M21.202,18.651 L21.202,3.349 C21.202,1.940 20.060,0.798 18.651,0.798 L3.349,0.798 C1.940,0.798 0.798,1.940 0.798,3.349 L0.798,18.651 C0.798,20.060 1.940,21.202 3.349,21.202 L18.651,21.202 C20.060,21.202 21.202,20.060 21.202,18.651 ZM3.349,19.927 C2.644,19.927 2.074,19.356 2.074,18.651 L2.074,3.349 C2.074,2.644 2.644,2.073 3.349,2.073 L18.651,2.073 C19.356,2.073 19.927,2.644 19.927,3.349 L19.927,18.651 C19.927,19.356 19.356,19.927 18.651,19.927 L3.349,19.927 ZM18.651,16.739 L18.651,5.261 C18.651,4.909 18.366,4.624 18.014,4.624 C17.662,4.624 17.376,4.909 17.376,5.261 L17.376,16.739 C17.376,17.091 17.662,17.376 18.014,17.376 C18.366,17.376 18.651,17.091 18.651,16.739 ZM15.901,11.475 C16.035,11.342 16.091,11.165 16.082,10.990 C16.091,10.815 16.035,10.639 15.901,10.505 L12.087,7.354 C11.836,7.104 11.430,7.104 11.179,7.354 C10.928,7.604 10.928,8.009 11.179,8.259 L13.724,10.362 L3.986,10.362 C3.634,10.362 3.349,10.648 3.349,11.000 C3.349,11.352 3.634,11.638 3.986,11.638 L13.700,11.638 L11.179,13.721 C10.928,13.971 10.928,14.376 11.179,14.626 C11.430,14.876 11.836,14.876 12.087,14.626 L15.901,11.475 Z" />
+                          </svg>
+                        </span>
+                      </a>
+                    <li>
+
+                  </ul>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+
+    </div>
+  </header>
+  <router-outlet></router-outlet>
+  <!--<app-feedback *ngIf="enableFeedback" (close)="closeFeedbackForm()"></app-feedback>-->
+  <div class="modal fade" id="modalMain" tabindex="-1">
+    <div class="modal-dialog  bg-none modal-xl" role="document">
+      <div class="modal-content bg-none">
+        <app-faq *ngIf="currentUser && webcast && active =='faq' " (onClose)="closePopup()"></app-faq>
+        <app-speaker *ngIf="currentUser && webcast && active =='speaker' " (onClose)="closePopup()"></app-speaker>
+        <app-agenda *ngIf="currentUser && webcast && active =='agenda'" (onClose)="closePopup()"></app-agenda>
+        <app-briefcase *ngIf="currentUser && webcast && active =='briefcase'" (onClose)="closePopup()"></app-briefcase>
+        <app-socialwall *ngIf="currentUser && webcast && active =='socialwall'" (onClose)="closePopup()"></app-socialwall>
+        <app-gallery *ngIf="currentUser && webcast && active =='gallery'" (onClose)="closePopup()"></app-gallery>
+        <app-leaderboard *ngIf="currentUser && webcast && hasWidget('leaderboard') && active =='leaderboard' " (onClose)="closePopup()"></app-leaderboard>
+        <app-entertainment *ngIf="currentUser && webcast && hasWidget('game') && active =='game' " (onClose)="closePopup()"></app-entertainment>
+         <div class="row justify-content-center">
+          <div class="col-lg-12 col-sm-8 col-12">
+            <app-profile mode="edit" *ngIf="currentUser && webcast && active =='profile'" (close)="closePopup()"></app-profile>     </div>
+         </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <app-netlounge *ngIf="currentUser && webcast && active =='netlounge'"></app-netlounge>
+  <app-experince-zone *ngIf="currentUser && webcast && active =='experince-zone'"></app-experince-zone>
+
+  <footer *ngIf="currentUser && webcast && footerVisibilty">
+    <ul class="loby-footer">
+      <li *ngIf="hasWidget('experience_zone')" class="main_footer_expo">
+        <a href="javascript:void(0)" routerLink="/{{this.webcast.webcast_id}}/expo">
+          <span class="svg-icon experience"></span>
+          <span class="d-flex">
+            Experience ZONE
+          </span>
+        </a>
+      </li>
+      <li *ngIf="hasWidget('networking_lounge')" class="main_footer_lounge">
+        <a href="javascript:void(0)" routerLink="/{{this.webcast.webcast_id}}/lounge">
+          <span class="svg-icon network"></span>
+          <span class="d-flex">
+            Networking Lounge
+          </span>
+        </a>
+      </li>
+      <li class="main_footer_briefcase">
+        <a href="javascript:void(0);" (click)="openModal('briefcase')" data-toggle="modal" data-target="#modalMain">
+          <span class="svg-icon db"></span>
+          <span class="d-flex">
+            Digital Briefcase
+          </span>
+        </a>
+      </li>
+      <li *ngIf="hasWidget('social_wall')" class="main_footer_social">
+        <a href="javascript:void(0);" (click)="openModal('socialwall')" data-toggle="modal" data-target="#modalMain">
+          <span class="svg-icon socialwall"></span>
+          <span class="d-flex">
+            SOCial Wall
+          </span>
+        </a>
+      </li>
+      <li class="main_footer_gallery">
+        <a href="javascript:void(0);" (click)="openModal('gallery')" data-toggle="modal" data-target="#modalMain">
+          <span class="svg-icon gallery"></span>
+          <span class="d-flex">
+            GALLERY
+          </span>
+        </a>
+      </li>
+      <li class="main_footer_qumin">
+
+        <a href="javascript:void(0);" (click)="updateStatQminCafe()" target="_blank">
+          <span class="svg-icon qmin_cafe"></span>
+          <span class="d-flex">
+            Qmin Cafe
+          </span>
+
+        </a>
+      </li>
+      <li class="main_footer_chat">
+        <span class="chat-alert-bell-icon" *ngIf="showChatAlert"></span>
+        <a href="javascript:void(0);" (click)="toggleChat()" *ngIf="hasWidget('x_chat')">
+          <span class="svg-icon chat"></span>
+          <span class="d-flex">
+            Chat
+          </span>
+
+        </a>
+      </li>
+
+    </ul>
+  </footer>
+ 
+</ng-container>
+<ng-container>
+  <app-xchat #xChatInstance *ngIf="xEventSocketService.socketUsetId" [OpenChatForByUserId]="appState.triggerChatUserId" (onParticipantChatOpened)="xEventSocketService.onParticipantChatOpened($event,webcast.webcast_id)" (onUnreadMessageNotify)="showChatNotificationAlert($event)" (onChatClosed)="closeChat($event)" [appUserId]="userId" [isCollapsed]="!showChat" [adapter]="xEventSocketService.adapter" [title]="'People'" [userId]="xEventSocketService.socketUsetId" [historyEnabled]="true" [customTheme]="'./assets/css/chat.css'" class="app-xchat"></app-xchat>
+  </ng-container>
+  <div class="rotate-msg" *ngIf="showWebsite == false">
+    <img src="./assets/images/rotate.svg" alt="">
+      Please rotate your device to landscape mode.
+  </div>
+

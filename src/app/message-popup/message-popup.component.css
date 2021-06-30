@@ -1,0 +1,18 @@
+.modal-body {
+  background-color: rgba(240, 185, 118, 0.9);
+  padding: 60px 30px;
+  border-bottom: none;
+  border-radius: 40px 40px 40px 40px;
+}
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0px solid rgba(0,0,0,.2);
+  border-radius: .3rem;
+  outline: 0;
+}

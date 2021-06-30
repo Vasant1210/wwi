@@ -1,0 +1,8 @@
+
+@media not all and (min-resolution:.001dpcm) {
+    @media {
+        .landing-livenow-button {
+            padding: .4675em .4em .3em;
+        }
+    }
+}

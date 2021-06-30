@@ -1,0 +1,30 @@
+<div class="row justify-content-center">
+    <div class="col-custom-80" *ngIf="cForm">
+      <div width="100%" class="row">
+        <table style="width:70%" class="leaderboard-pointsystem">
+          <tr>
+            <th>Activities</th>
+            <th>Points</th>
+          </tr>
+          <tr *ngFor="let field of pointsystem">
+            <td>{{field.label}}</td>
+            <td>{{field.value}}</td>
+          </tr>     
+        </table>
+        <table style="width:30%" class="leaderboard-gradesystem">
+          <tr id="heading">
+            <th colspan="2">Grade</th>
+          </tr>
+          <tbody>
+          <tr *ngFor="let _gradeSystem of gradeSystem">
+            <td>{{_gradeSystem.grade}}</td>
+            <td>{{_gradeSystem.max_range}} - {{_gradeSystem.min_range}}</td>
+          </tr>  
+        </tbody>    
+        </table>
+        </div>
+  </div>
+
+</div>
+
+ 

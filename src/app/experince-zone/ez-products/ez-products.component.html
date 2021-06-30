@@ -1,0 +1,11 @@
+<div class="popup-wrap products_popup popup_opened">
+  <div class="_head">
+    <h4 class="title">PRODUCTS &<br>Services</h4>
+    <a href="javascript:void(0)" (click)="closePopup()" class="_close"></a>
+  </div>
+  <div class="_cont">
+    <ul class="_list">
+      <li *ngFor="let product of products"><label>{{product}}</label></li>     
+    </ul>
+  </div> <!-- _cont -->
+</div>

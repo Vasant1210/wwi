@@ -1,0 +1,331 @@
+#ng-chat-people {
+    position: relative;
+
+    width: 100%;
+    min-height: 40em;
+    margin-right: 0;
+
+    border-width: 0;
+    border-style: solid;
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);*/
+    border-bottom: 0;
+}
+
+#ng-chat-people.ng-chat-people-collapsed {
+    height: 30px;
+}
+
+#ng-chat-search_friend::placeholder {
+    color: #000;
+}
+#ng-chat-search_friend {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    margin: 5px 0 10px;
+
+    font-size: 1.5em;
+    font-weight: 500;
+
+    color: #000;
+    border: 0;
+    border-radius: 5px;
+    background: rgba(174, 119, 68, .8);
+
+    -webkit-appearance: searchfield;
+}
+
+#ng-chat-users {
+    position: absolute;
+    top: 45px;
+    bottom: 0;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    box-sizing: border-box;
+
+    list-style: none;
+}
+
+#ng-chat-users .ng-chat-users-checkbox {
+    float: left;
+    margin-top: 8px;
+    margin-right: 5px;
+}
+
+#ng-chat-users li {
+    position: relative;
+
+    max-height: inherit;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    clear: both;
+
+    cursor: pointer;
+}
+
+#ng-chat-users li:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    width: calc(100% - 60px);
+    height: 1px;
+
+    content: "";
+
+    background: #e0a45a;
+}
+
+#ng-chat-users li:last-child {
+    margin-bottom: 0;
+}
+
+#ng-chat-users li:last-child:after {
+    content: none;
+}
+
+#ng-chat-users li > .ng-chat-friends-list-selectable-offset {
+    margin-left: 22px;
+}
+
+#ng-chat-users li .ng-chat-friends-list-container {
+    display: inline-block;
+    width: 85%;
+
+    vertical-align: top;
+}
+
+#ng-chat-users li > .ng-chat-friends-list-selectable-offset.ng-chat-friends-list-container {
+    display: block;
+    width: auto;
+}
+
+#ng-chat-users li .ng-chat-friends-list-container > .icon-wrapper,
+#ng-chat-users li .ng-chat-friends-list-container > img.avatar {
+    float: left;
+    margin-right: 5px;
+
+    border-radius: 25px;
+}
+
+#ng-chat-users li .ng-chat-friends-list-container > .icon-wrapper {
+    position: relative;
+
+    width: 52px;
+    height: 52px;
+    overflow: hidden;
+
+    border: 2px solid #fff;
+    background-color: #bababa;
+}
+#ng-chat-users li .ng-chat-friends-list-container > .icon-wrapper img {
+    position: absolute;
+    top: 50%;
+
+    width: 100%;
+
+    transform: translateY(-50%);
+}
+
+#ng-chat-users li .ng-chat-friends-list-container > .icon-wrapper > i {
+    position: relative;
+
+    transform: scale(.7);
+
+    color: #fff;
+}
+
+#ng-chat-users li .ng-chat-friends-list-container > .icon-wrapper > i:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 50px;
+    height: 50px;
+
+    font-size: 18px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 46px;
+
+    content: attr(title);
+    text-align: center;
+}
+#ng-chat-users li .ng-chat-friends-list-container > strong:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 52px;
+    height: 52px;
+    overflow: hidden;
+
+    content: "";
+
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background-color: #bababa;
+}
+
+#ng-chat-users li .ng-chat-friends-list-container > strong {
+    display: block;
+    max-width: 95%;
+    max-height: inherit;
+    padding-left: 64px;
+    margin-top: -10px;
+    overflow: hidden;
+
+    font-size: 1.8em;
+    line-height: 50px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#ng-chat-users li .ng-chat-friends-list-container > .company-name {
+    display: block;
+    padding-left: 64px;
+    margin-top: -12px;
+
+    font-family: "Config";
+    font-size: 1.4em;
+}
+#ng-chat-users li .ng-chat-friends-list-container > .icon-wrapper + strong {
+    padding-left: 8px;
+}
+#ng-chat-users li .ng-chat-friends-list-container > .icon-wrapper + strong:before {
+    content: none;
+}
+.ng-chat-people-actions {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    z-index: 2;
+
+    padding: 0;
+    margin: 0;
+}
+
+.ng-chat-people-actions > a.ng-chat-people-action {
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    padding: 1px;
+    margin-right: 8px;
+
+    text-decoration: none;
+
+    border: none;
+    border-radius: 25px;
+}
+
+@media only screen and (max-width: 1024px) {
+    #ng-chat-people {
+        min-height: calc(100vh - 12em);
+    }
+}
+
+.ng-chat-participant-status.online,
+.ng-chat-participant-status.busy,
+.ng-chat-participant-status.away {
+    background-color: #92a400;
+}
+
+.ng-chat-participant-status {
+    position: absolute;
+    bottom: 10px;
+    left: 35px;
+
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-top: 10px;
+
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+
+.ng-chat-participant-status.offline {
+    background-color: #f91c1e;
+}
+
+
+.unread-messages-counter-container {
+    position: absolute;
+    top: 30%;
+    left: 78%;
+
+    display: inline-block;
+    float: right;
+    width: 1.5em;
+    height: 1.5em;
+    padding: 2px;
+    margin-top: -8px;
+
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1.5em;
+
+    text-align: center;
+    vertical-align: middle;
+
+    border-radius: 50%;
+    background-color: red;
+}
+.business-option-list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    list-style-type: none;
+
+    border-radius: 0 0 20px 20px;
+}
+#ng-chat-users + .business-option-list {
+    bottom: -10px;
+    left: -10px;
+
+    width: calc(100% + 20px);
+}
+.business-option-list li {
+    padding: 1.8em 2.2em;
+
+    font-family: "Config";
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1em;
+
+    cursor: pointer;
+    text-transform: uppercase;
+
+    background: #ad7743;
+}
+
+.business-option-list li:first-child {
+    border-color: rgba(237, 185, 119, .4);
+    border-bottom: 1px solid;
+}
+
+.business-option-list li:last-child {
+    padding: 1.5em 2em;
+
+    text-align: center;
+
+    color: #fff;
+    background: #b77c49;
+}
+
+.disableCardAction {
+    cursor:none !important;
+    background-color: #dd891b !important;
+}
+

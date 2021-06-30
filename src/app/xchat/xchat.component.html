@@ -1,0 +1,64 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<!--<ng-chat #ngChatInstance *ngIf="socketUserId" [adapter]="xEventScoketService" [title]="'People'" [userId]="socketUserId" [historyEnabled]="false" [customTheme]="'assets/css/chat.css'"></ng-chat>-->
+<div class="card-2 custom-popup" *ngIf="!isCollapsed">
+  <div class="card-header d-flex justify-content-between">
+    <ul class="custom-chat-tabs">
+      <li (click)="setActiveTab('people')" [ngClass]="{active: activeTab == 'people'}">
+        People
+      </li>
+      <li (click)="setActiveTab('conversation')" [ngClass]="{active: activeTab == 'conversation'}">
+        Chat
+      </li>
+    </ul>
+    <a href="javascript:void(0);" class="close-icon" (click)="toggleChat()">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="card-body">
+    <div>
+      <ng-container *ngIf="activeTab=='people'">
+        <span class="total-online-txt" *ngIf="!hideFriendsList">Total Online Users {{getOnlineUserCount(participants)}}</span>
+        <app-xchat-friends-list [localization]="localization" [shouldDisplay]="!hideFriendsList"
+                                [userId]="userId" [isCollapsed]="isCollapsed" [searchEnabled]="searchEnabled"
+                                [participants]="participants" [participantsResponse]="participantsResponse"
+                                [participantsInteractedWith]="participantsInteractedWith"
+                                [windows]="windows" [currentActiveOption]="currentActiveOption"
+                                (onParticipantClicked)="onParticipantClickedFromFriendsList($event)"
+                                (onParticipantBusinessCardSendClicked)="onParticipantBusinessCardSendClickedFromFriendsList($event)"
+                                (onParticipantBusinessCardRequestClicked)="onParticipantBusinessCardRequestClickedFromFriendsList($event)"
+                                (onOptionPromptCanceled)="onOptionPromptCanceled()"
+                                (onOptionPromptConfirmed)="onOptionPromptConfirmed($event)">
+        </app-xchat-friends-list>
+      </ng-container>
+        <ng-container  *ngIf="activeTab=='conversation'">
+        <app-xchat-friends-list [localization]="localization" [shouldDisplay]="!hideFriendsList"
+                                [userId]="userId" [isCollapsed]="isCollapsed" [searchEnabled]="searchEnabled"
+                                [participants]="conversist" [participantsResponse]="conversationResponse"
+                                [participantsInteractedWith]="participantsInteractedWith"
+                                [windows]="windows" [currentActiveOption]="currentActiveOption"
+                                (onParticipantClicked)="onParticipantClickedFromFriendsList($event)"
+                                (onParticipantBusinessCardSendClicked)="onParticipantBusinessCardSendClickedFromFriendsList($event)"
+                                (onParticipantBusinessCardRequestClicked)="onParticipantBusinessCardRequestClickedFromFriendsList($event)"
+                                (onOptionPromptCanceled)="onOptionPromptCanceled()"
+                                (onOptionPromptConfirmed)="onOptionPromptConfirmed($event)" [showBusinessCard]="false" [showUnreadMessageAlert]="true">
+        </app-xchat-friends-list>
+      </ng-container>
+      <ng-container *ngIf="hideFriendsList">
+        <div *ngFor="let window of windows; let i=index"
+             [ngClass]="{'ng-chat-window': true, 'primary-outline-color' : true, 'ng-chat-window-collapsed' : window.isCollapsed}"
+             [ngStyle]="{'right': (!hideFriendsList ? friendsListWidth : 0) + 20 + windowSizeFactor * i + 'px' }">
+          <app-xchat-window #chatWindow [fileUploadAdapter]="fileUploadAdapter" [localization]="localization" [userId]="userId"
+                            [window]="window" [showOptions]="groupAdapter" [appUserId]="appUserId"
+                            [emojisEnabled]="emojisEnabled" [linkfyEnabled]="linkfyEnabled"
+                            [showMessageDate]="showMessageDate" [messageDatePipeFormat]="messageDatePipeFormat"
+                            [hasPagedHistory]="hasPagedHistory" (onMessagesSeen)="onWindowMessagesSeen($event)"
+                            (onMessageSent)="onWindowMessageSent($event)" (onTabTriggered)="onWindowTabTriggered($event)"
+                            (onChatWindowClosed)="onWindowChatClosed($event)" (onOptionTriggered)="onWindowOptionTriggered($event)"
+                            (onLoadHistoryTriggered)="fetchMessageHistory($event)" class="app-xchat-window">
+          </app-xchat-window>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="popup-overlay-chat" *ngIf="!isCollapsed" (click)="toggleChat()"></div>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="152" height="54" viewBox="0 0 152 54">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c6a05e;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+        stroke: url(#linear-gradient);
+        filter: url(#filter);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="76" y1="53" x2="76" y2="1" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ebaa2b"/>
+      <stop offset="0.138" stop-color="#ebaa2b"/>
+      <stop offset="0.516" stop-color="#f7eac6"/>
+      <stop offset="0.988" stop-color="#ebaa2b"/>
+      <stop offset="1" stop-color="#ebaa2b"/>
+    </linearGradient>
+    <filter id="filter" x="1" y="1" width="150" height="52" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="1" y="1" width="150" height="52" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjUyIiB2aWV3Qm94PSIwIDAgMTUwIDUyIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiB1cmwoI2xpbmVhci1ncmFkaWVudCk7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxpbmVhci1ncmFkaWVudCIgeDE9Ijc1IiB5MT0iNTIiIHgyPSI3NSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM5YjY1MjgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjk5NCIgc3RvcC1jb2xvcj0iI2M1OGY0OSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjNThmNDkiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IGNsYXNzPSJjbHMtMSIgd2lkdGg9IjE1MCIgaGVpZ2h0PSI1MiIvPgo8L3N2Zz4K"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g style="fill: #c6a05e; filter: url(#filter)">
+    <rect id="Rectangle_6_copy_10" data-name="Rectangle 6 copy 10" class="cls-1" x="1" y="1" width="150" height="52" rx="10" ry="10" style="stroke: inherit; filter: none; fill: inherit"/>
+  </g>
+  <use xlink:href="#Rectangle_6_copy_10" style="stroke: url(#linear-gradient); filter: none; fill: none"/>
+</svg>

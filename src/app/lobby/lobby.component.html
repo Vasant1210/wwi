@@ -1,0 +1,57 @@
+<app-app-loader [loading]="loading"></app-app-loader>
+<div id="app" *ngIf="lobby">
+  <main class=" main-section loby-main-section" style="background-image: url('{{ lobby.bgimage }}');" *ngIf="webcast">
+    <div class="posititon-relative" style="height: 100vh; width: 100vw;"> 
+      <a *ngIf="webcast && door1_room=='1'" href="javascript:void(0);" (click)="goToMainRoom()" data-toggle="modal" data-target="#modalMain3" class="lody-main-link lody-main-link-1">
+        <span class="tour-lobby-door-1" *ngIf="tourMode">
+          MAIN EVENT
+        </span>
+      </a>
+      <a *ngIf="webcast && door2_room=='1'" href="javascript:void(0);" (click)="goToMainRoom()" data-toggle="modal" data-target="#modalMain3" class="lody-main-link lody-main-link-2">
+        <span class="tour-lobby-door-2" *ngIf="tourMode" >
+          MAIN EVENT
+        </span>
+      </a>      
+      <a (click)="openAgenda()" class="loby-image-link lobby-agenda" data-toggle="modal" data-target="#modalMain2" *ngIf="agendaImage">
+        <img src="{{ agendaImage }}" class="img-fluid" />  
+      </a>
+        <video class="lobby-video-player1" allow="autoplay" #lobbyVideoPlayer1 *ngIf="tv1_video" muted [muted]="'muted'"  autoplay loop>
+          <source src="{{tv1_video}}" type="video/mp4">
+        </video>
+        <video playsinline="playsinline" class="lobby-video-player2" #lobbyVideoPlayer2  allow="autoplay" [muted]="'muted'"  loop *ngIf="tv2_video" muted autoplay>
+          <source src="{{tv2_video}}" type="video/mp4">
+        </video>
+      <div class="dropdown chat-box">
+        <app-helpdesk></app-helpdesk>
+      </div>
+
+<!-- <audio *ngIf="showMusic === true" src="https://admin.tajvip.in/{{data}}"></audio> -->
+<!-- <img *ngIf="showMusic === true" (click)="onmusic()" id="button" src="/assets/images/Mute.svg"> -->
+
+      <!-- <img  *ngIf="lobby && lobby.bgimage" class="img-fluid" src = "{{ lobby.bgimage }}"/> -->
+    </div>    
+  </main>
+  
+</div>
+<div class="guidedtour-chat-box" *ngIf="tourMode" #guidedtourChatBox>
+  <img src="./assets/images/1a_chat_people.png" *ngIf="showTourChatOpen" />
+  <img src="./assets/images/business-card.png" #guidedtourChatBoxBtn class="btn guidedtour-chat-box-btn"/>
+</div>
+<div class="modal fade" id="modalMain2" tabindex="-1">
+  <div class="modal-dialog  bg-none modal-xl" role="document">
+    <div class="modal-content bg-none">
+      <app-agenda *ngIf="currentUser && webcast && active =='agenda'"></app-agenda>
+    </div>
+  </div>
+</div>
+<div class="modal fade message-modal" id="modalMain3" tabindex="-1">
+  <div class="modal-dialog  bg-none modal-xl" role="document">
+    <div class="modal-content bg-none">
+      <div class="modal-body">
+        <h5>{{error}}</h5>
+        <button data-dismiss="modal"> Got It </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-guided-tour *ngIf="currentUser && currentUser.hasProfile && enableTour"  progress-indicator-location="ProgressIndicatorLocation.TopOfTourBlock" backText="Prev"></ngx-guided-tour>

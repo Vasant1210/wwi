@@ -1,0 +1,41 @@
+<div *ngIf="webcast">
+  <div class="text-right boxed-data">
+    <p class="event-dates" *ngIf="startDate">
+      {{ startDate | date:'d'}}{{getSuffix(startDate | date:'d')}}{{ endDate | date:' MMMM'}}  - {{ endDate | date:'d'}}{{getSuffix(endDate | date:'d')}}{{ endDate | date:' MMMM yyyy'}}
+    </p>
+    <p class="event-title">
+      {{webcast.title}}
+    </p>
+    <p class="event-vanue">
+      {{webcast.location}}
+    </p>
+  </div>
+  <div class="clearfix"></div>
+  <ul class="timer" *ngIf="showTimer">
+    <li>
+      <div><span id="days" class="count"> {{daysToDday}} </span><span class="measure">Days</span></div>
+    </li>
+    <li>
+      <div> <span id="hours" class="count"> {{hoursToDday}} </span><span class="measure">Hours</span></div>
+    </li>
+    <li>
+      <div>  <span id="minutes" class="count"> {{minutesToDday}} </span><span class="measure">Minutes</span></div>
+    </li>
+    <li>
+      <div> <span id="seconds" class="count"> {{secondsToDday}} </span><span class="measure">Seconds</span></div>
+    </li>
+  </ul>
+
+  <p class="text-right" *ngIf="!showTimer">
+    <ng-container *ngIf="webcast && webcast.status && webcast.status == 'publish'">
+      <span class="landing-message-update text-white">We Will be Live soon. </span><span><a class="landing-message-update text-white" href="javascript:void(0);" onclick="window.location.reload(true);">Click to Refresh</a></span>
+    </ng-container>
+
+    <ng-container *ngIf="webcast && webcast.status && webcast.status == 'live'">
+      <button class="landing-livenow-button" style="cursor:unset">LIVE NOW</button>
+    </ng-container>
+    <ng-container *ngIf="webcast && webcast.status && webcast.status == 'end'">
+      <span class="text-white landing-message-update">Event has ended</span>
+</ng-container>
+  </p>
+</div>

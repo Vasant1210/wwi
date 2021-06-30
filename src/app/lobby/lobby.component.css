@@ -1,0 +1,69 @@
+.loby-main-section{
+    background-size: cover !important;
+    background-position: left center !important;
+}
+.lobby-video-player1 {
+  position: absolute;
+  z-index: 11;
+  top: 45.5%;
+  left: 26.5%;
+  width: 8%;
+  height: 12%;
+  border: 1px solid rgba(196,139,73);
+  object-fit: cover;
+}
+.lobby-video-player2 {
+  position: absolute;
+  z-index: 11;
+  top: 46%;
+  left: 43%;
+  width: 8%;
+  height: 12%;
+  object-fit: cover;
+  border: 1px solid rgba(196,139,73);
+}
+.guidedtour-chat-box {
+  position: relative;
+  width: 100%;
+}
+  /* Make the image responsive */
+  .guidedtour-chat-box img {
+    position: absolute;
+    bottom:10vh;
+    right:10px;
+    width: 20%;
+    height: auto;
+    z-index:1000;
+  }
+
+  /* Style the button and place it in the middle of the container/image */
+  .guidedtour-chat-box .btn {
+    position: absolute;
+    bottom: 10vh;
+    right: 8px;
+    width: 4%;
+    height: auto;
+  }
+audio {
+  display: none;
+}
+img#button{
+  font-size: 16px;
+    color: #eee;
+    position: absolute;
+    top: 20%;
+    right: 0%;
+  -webkit-filter: invert(100%);
+    filter: invert(100%);
+    width: 65px;
+    padding: 15px;
+    border: none;
+	z-index:112;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.4s ease-out;
+}
+.fade:not(.show) {
+    opacity: 1;
+}

@@ -1,0 +1,26 @@
+
+<div class="card-2 custom-popup questionstyle">
+  <div class="card-header d-flex justify-content-between">
+    
+    <h5 class="card-title ml-2 mb-0 font-weight-bold">
+      Ask a Question
+    </h5>
+    <a href="javascript:void(0);" (click)="closePopup()" class="close-icon">
+      <svg _ngcontent-tmt-c60="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="15px"><path _ngcontent-tmt-c60="" fill-rule="evenodd" fill="rgb(5, 5, 5)" d="M15.727,13.495 L14.316,14.837 L8.106,9.010 L2.105,14.837 L0.741,13.494 L6.916,7.499 L0.741,1.505 L2.105,0.162 L8.107,5.989 L14.316,0.163 L15.727,1.505 L9.338,7.500 L15.727,13.495 Z"></path></svg>
+    </a>
+  </div>
+  <div class="card-body">
+    <textarea maxlength="1000" class="form-control transparent" (focus)="resetLoading('')" placeholder="Start typing your question..." name="txtquestion" id="txtquestion" rows="4" [formControl]="txtquestion" col="50"> </textarea>
+    <div *ngIf="submitted" class="invalid-feedback error-text d-block">
+      <div *ngIf="checkError('required')">Question is required</div>
+    </div>
+    <div>
+      <div *ngIf="success" class="text-success mt-3 mb-0">{{success}}</div>
+      <div *ngIf="error" class="error-text mt-3 mb-0">{{error}}</div>
+    </div>
+    <div class="text-center pt-2">
+      <button (click)="addRemark()" class="btn btn-primary"><span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit!</button>
+    </div>
+    
+      </div>
+</div>

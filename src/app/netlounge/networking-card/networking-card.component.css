@@ -1,0 +1,161 @@
+.tbg {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+
+    text-align: center;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.speednetwroking {
+    position: relative;
+}
+
+.card-wrapper-1 {
+    position: absolute;
+    top: 0; /*1980 28vh*/
+    /*position: absolute;*/
+    z-index: 89;
+}
+
+.card-wrapper {
+    z-index: 90;
+
+    -webkit-box-shadow: 5px 0 40px 0 #bc8951, 10px 0 50px 0 #bc8951;
+       -moz-box-shadow: 5px 0 40px 0 #bc8951, 10px 0 50px 0 #bc8951;
+            box-shadow: 5px 0 40px 0 #bc8951, 10px 0 50px 0 #bc8951;
+}
+
+.cards {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+
+    font-family: "Config";
+
+    text-align: center;
+
+    justify-content: center;
+}
+
+.card {
+    z-index: 1;
+
+    padding: 40px;
+    margin: .5rem .25em;
+    box-sizing: border-box;
+
+    text-align: center;
+
+    border-radius: 10px;
+    background: #bc8951;
+    /*position:absolute;*/
+
+    justify-content: center;
+}
+
+.card .circular-image {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+}
+
+.tcontrols {
+    display: block;
+    margin-top: 5em;
+}
+
+.tcontrols .controls img {
+    margin-right: 15px;
+}
+.tcontrols .controls:last-child img {
+    margin-right: 0;
+    margin-left: 15px;
+}
+.tcontrols .controls {
+    float: left;
+    padding: 0;
+    margin: 0;
+    margin-left: -30px;
+
+    font-size: 2.2em;
+
+    cursor: pointer;
+
+    color: #fff;
+    border-radius: 0;
+    background-color: transparent;
+}
+.tcontrols .controls:last-child {
+    float: right;
+    margin-right: -30px;
+    margin-left: 0;
+}
+
+.close-icon {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    z-index: 2;
+
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    margin: 15px;
+
+    line-height: 42px;
+
+    opacity: 1;
+    color: #fff;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.business_popup .grid-rows .box .box-content .rows-wrap .box-rows .card-details li.name {
+    font-size: 1.3rem;
+    font-weight: 600;
+
+    letter-spacing: .5px;
+
+    color: #fff;
+}
+
+.business_popup .grid-rows .box .box-content .rows-wrap .box-rows .card-details li.company {
+    margin-bottom: 12px;
+
+    font-size: 1.2rem;
+}
+
+.business_popup .summary {
+    display: block;
+    margin: 10px 0 20px;
+
+    font-size: 1.1rem;
+
+    text-align: center;
+
+    color: #000;
+}
+
+.business_popup .btn {
+    margin-bottom: 10px;
+}
+.cards-wrapper {
+    background: rgba(0,0,0,.7);
+}
+.flex-wrapper {
+    display: flex;
+}
+@media only screen and (max-width: 900px) {
+    .cards-wrapper {
+        position: relative;
+
+        padding-top: 5px;
+    }
+    .tcontrols {
+        margin-top: 1em;
+    }
+}

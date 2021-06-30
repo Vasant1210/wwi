@@ -1,0 +1,76 @@
+.vide-player {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  display: block;
+  min-height: 100%;
+  width: 100%;
+}
+video {
+  object-fit: fill;
+}
+.btn-transparent{
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: auto;
+}
+audio {
+  display: none;
+}
+
+
+
+img#button{
+  font-size: 16px;
+  color: #eee;
+  position: absolute;
+     top: 90%;
+  -webkit-filter: invert(100%);
+    filter: invert(100%);
+    left: 95%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  padding: 15px;
+  border: none;
+  z-index:99999;
+  
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+}
+
+img#button.fade:hover {
+  opacity: 1.0;
+}
+img#vidbutton{
+  font-size: 16px;
+  color: #eee;
+  position: absolute;
+     top: 90%;
+  -webkit-filter: invert(100%);
+    filter: invert(100%);
+    left: 95%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  padding: 15px;
+  border: none;
+  z-index:99999;
+  
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+}
+
+img#vidbutton.fade:hover {
+  opacity: 1.0;
+}
+
+.fade {
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  transform: translate(0, 0);
+}

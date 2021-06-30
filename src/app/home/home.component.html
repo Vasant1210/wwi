@@ -1,0 +1,140 @@
+ <app-app-loader [loading]="loading"></app-app-loader>
+ <div id="app" *ngIf="webcast && mainEvent && (mainEvent.status=='publish' || mainEvent.status== 'live' )">
+   <main class=" main-section loby-main-section" *ngIf="webcast" style="{{mainEvent.bgimage ? 'background-image: url(' + mainEvent.bgimage + ');':''}}">
+     <ng-container class="embed-responsive embed-responsive-16by9 video-player" *ngIf="entry_video != '' && !showStream && showM3u===false">
+       <video playsinline="playsinline" class="video-player" (timeupdate)="showStreaming($event)" muted allow="autoplay" #videoPlayer>
+         <source src="{{entry_video}}" type="video/mp4">
+       </video>
+     </ng-container>
+     <!--<div class="embed-responsive embed-responsive-16by9 video-player" *ngIf="stream_url != '' && showStream">
+      <iframe class="embed-responsive-item" [src]="stream_url | sanitize: 'resourceUrl'" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+    </div>-->
+     <div class="vimeo-wrapper" *ngIf="stream_url != '' && showStream && showM3u===false">
+       <iframe class="" frameborder="0" [src]="stream_url | sanitize: 'resourceUrl'" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+     </div>
+
+     <a *ngIf="webcast && allowSkip" class="btn btn-transparent home-skip-button" href="javascript:void(0)" (click)="skipToStream()">Skip</a>
+
+	 
+
+ <video id="my-video" [ngClass]="{'hidden' : !showM3u}" #videoPlayer class="vimeo-wrapper video-js vjs-default-skin" controls preload="auto" poster="MY_VIDEO_POSTER.jpg"
+  data-setup='{}'>
+  <source src="{{stream_url}}" id="testVideoSource" type='application/x-mpegURL'>
+  <p class="vjs-no-js">
+    To view this video please enable JavaScript, and consider upgrading to a web browser that
+    <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+  </p>
+</video>
+	 
+	   <!-- <video [class.hidden]="!showM3u" *ngIf="stream_url != '' && showStream" #videoPlayer id="my_video_1" class="video-player video-js vjs-fluid vjs-default-skin" controls preload="auto" -->
+  <!-- data-setup='{}'> -->
+    <!-- <source [src]="stream_url | sanitize: 'resourceUrl'" type="application/x-mpegURL"> -->
+  <!-- </video> -->
+
+   </main>   
+
+   <footer class="d-flex justify-content-between align-items-center">
+
+     <a href="javascript:void(0);" routerLink="/{{this.webcast.webcast_id}}/lobby" class="exit-link d-flex align-items-center m-2"><img class="img-fluid" src="assets\images\exit-icon.png" /><span class="ml-2 ">EXIT To lobby</span></a>
+
+     <ul class="main-footer w-100 nav" *ngIf="showStream">
+       <li class="nav-item dropdown" *ngIf="currentUser && views">
+         <a class="nav-link" href="javascript:void(0);"  (click)="openActionWindow('cameras')" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <span class="svg-icon camera"></span>
+           <span class="d-flex">
+             Event Views
+           </span>
+         </a>
+         <!-- Button trigger modal -->
+        
+
+
+         <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+          
+         </div>
+       </li>
+
+       <li class="nav-item dropdown" *ngIf="currentUser">
+        <a class="nav-link" href="javascript:void(0);" (click)="openActionWindow('notes')" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="svg-icon note"></span>
+          <span class="d-flex">
+            TAKE A NOTE
+          </span>
+        </a>
+        <!-- Button trigger modal -->
+
+
+
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+
+        </div>
+      </li>
+
+       <li class="nav-item dropdown" *ngIf="currentUser &&  hasPoll">
+         <a class="nav-link" href="javascript:void(0);" (click)="openActionWindow('poll')" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <span class="poll-alert-bell-icon" *ngIf="showPollAlert"></span>
+           <span class="svg-icon poll"></span>
+           <span class="d-flex">
+             POLL
+           </span>
+         </a>
+         <!-- Button trigger modal -->
+         <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+         </div>
+       </li>
+       <li class="nav-item dropdown" *ngIf="currentUser">
+         <a class="nav-link" href="#" id="navbarDropdown" (click)="openActionWindow('qa')" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <span class="svg-icon qa"></span>
+           <span class="d-flex">
+             Q&A
+           </span>
+         </a>
+         <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+         </div>
+       </li>
+
+       <li class="nav-item dropdown" *ngIf="currentUser">
+         <app-chatbox *ngIf="!hasWidget('x_chat')"></app-chatbox>
+         <span class="chat-alert-bell-icon" *ngIf="showChatAlert"></span>
+         <a class="nav-link" href="#" id="navbarDropdown" (click)="toggleChat()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <span class="svg-icon chat"></span>
+           <span class="d-flex">
+             CHAT
+           </span>
+         </a>
+         <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+         </div>
+       </li>
+     </ul>
+   </footer>
+   <!--
+
+   -->
+ </div>
+<app-notes *ngIf="action=='notes'" (close)="closeActionWindow()" activeRoomId="{{mainEvent.id}}"></app-notes>
+<app-polls *ngIf="action=='poll'" (close)="closeActionWindow()" activeRoomId="{{mainEvent.id}}"></app-polls>
+<app-questions *ngIf="action=='qa'" (close)="closeActionWindow()" activeRoomId="{{mainEvent.id}}"></app-questions>
+<div class="room-popup-overlay" (click)="closeActionWindow()" *ngIf="showOverlay"></div>
+<div *ngIf="action=='cameras'" class="card-2 custom-popup eventstyle camera-popup">
+  <div class="card-header d-flex justify-content-between">
+    <h5 class="card-title ml-2 mb-0">Event Views</h5>
+    <a href="javascript:void(0);" (click)="closeActionWindow()" class="close-icon">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="card-body">
+    <div class="" *ngIf="views">
+      <div class="content">
+        <ul class="">
+          <li *ngFor="let view of views">
+            <a *ngIf="view.name && view.url" href="javascript:void(0);" (click)="onSelectVideo(view.name,view.url)">
+              <span [ngClass]="{'highlightCameraView':view.url == selectedCamURL}">
+                {{view.name}}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="AST:dropup" class="cls-1" d="M849.475,297.986H834.523a3.523,3.523,0,0,1-2.492-6.015L842,282.005l9.968,9.966A3.523,3.523,0,0,1,849.475,297.986Z" transform="translate(-831 -282)"/>
+</svg>

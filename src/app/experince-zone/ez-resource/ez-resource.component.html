@@ -1,0 +1,67 @@
+<div class="popup-wrap resource_popup popup_opened">
+  <div class="_head">
+    <h4 class="title">RESOURCE HUB</h4>
+    <a href="javascript:void(0)" (click)="closePopup()" class="_close"></a>
+  </div>
+  
+  <div class="_cont">
+    <div class="tabs-wrapper" id="tabs_resources">
+      <ul class="tabs_list">        
+        <li class="active" [ngClass]="{'active': activeTab =='document'}" (click)="switchTab('document')" *ngIf="document && document.length>0">
+          <a href="javascript:void(0)" (click)="switchTab('document')">Documents</a>
+        </li>
+        <li [ngClass]="{'active': activeTab =='media'}" (click)="switchTab('media')" *ngIf="media && media.length>0">
+          <a href="javascript:void(0)" (click)="switchTab('media')">Media</a>
+        </li>       
+      </ul>
+     
+      <div class="tabs">
+        <div class="pane" [ngClass]="{'active': activeTab =='document'}" *ngIf="document && document.length>0">
+            <div class="grid-rows">
+                <div class="box" *ngFor="let _media of document; let j = index">
+                    <div class="box-content">
+                        <div class="rows-wrap" (dblclick)="openDocumnet(_media.file_name)">
+                            <div class="box-rows cursor-pointer">
+                              <img src="./assets/images/doc.svg" class="img-fluid doc" alt="">
+                            </div>
+                            <div class="box-rows cursor-pointer" >
+                              <h5 class="desc">{{_media.name}}</h5>
+                            </div>
+                            <div class="box-rows">
+                                <ul class="links">
+                                    <li>
+                                      <a href="{{_media.file_name}}" download target="_blank">
+                                        <img src="./assets/images/download.svg" alt="">
+                                        <span>DOWNLOAD</span>
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" (click)="add_to_briefcase(_media)">
+                                            <img src="./assets/images/save.png" alt="">
+                                        </a>
+                                        <span>ADD TO Digital Briefcase</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- box -->              
+
+            </div> <!-- grid rows -->
+
+        </div> <!-- pane -->
+        <div class="pane" [ngClass]="{'active': activeTab =='media'}" *ngIf="(media && media.length >0) || (vmedia && vmedia.length >0)">
+          <app-shared-gallery [images]="media" [videos]="vmedia" [canDownload]="true" [canAdd]="true" (onFullPageToggle)="onGalleryFullPage($event)" (onAdd)="add_to_briefcase($event)"></app-shared-gallery>
+        </div> <!-- pane --> 
+    </div>
+
+     </div>
+    <div *ngIf="success" class="notification-wrap" id="notification-wrap">
+      <div class="notification">
+        ADDED TO DIGITAL BRIEFCASE
+      </div>
+    </div>
+  </div> <!-- _cont -->
+  
+</div>
+

@@ -1,0 +1,29 @@
+<ngx-spinner [color]="'#ae7744'" [type]="'fire'"></ngx-spinner>
+<div id="app" class="experience-page" *ngIf="webcast && !selectedStall"> 
+  <main class="wrapper bg3" *ngIf="expo_bgimage"  style="background-image: linear-gradient(rgba(0, 0, 0, 0.35) 5%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0)),url('{{expo_bgimage}}');">
+       <div class="content">
+      <div class="stall-carousel-wrapper">
+        <ng-container *ngIf="stalls">
+          <ngx-slick-carousel #stallCarousal class="slick-carousel"
+                              #slickModal="slick-carousel"
+                              [config]="slideConfig"
+                              (init)="slickInit($event)"
+                              (breakpoint)="breakpoint($event)"
+                              (afterChange)="afterChange($event)"
+                              (beforeChange)="beforeChange($event)">
+            <div ngxSlickItem *ngFor="let stall of stalls">
+              <img [src]="stall.bgimage" (click)="openStall(stall)" alt="" class="stall">
+            </div>
+          </ngx-slick-carousel>
+        </ng-container>
+
+        <a  href="javascript:void(0);" (click)="goToLobby();" class="exit-lobby">
+          <img src="./assets/images/ez_back_to_lobby.png" alt="">
+          Exit to lobby
+        </a>
+      </div>
+
+    </div>
+  </main>
+</div>
+<app-ez-detail [stall]="selectedStall" [expoBg]="expo_bgimage" *ngIf="webcast && selectedStall" (onStallClosed)="openStall(null)"></app-ez-detail>

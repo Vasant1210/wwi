@@ -1,0 +1,26 @@
+.leaderboard-prizes table,
+.leaderboard-prizes th,
+.leaderboard-prizes td {
+  border: 0px;
+  padding: 5px;
+  text-align: center;
+}
+table {
+  border-spacing: 5px;
+  border-collapse: unset;
+  width:100%;
+}
+.leaderboard-prizes td
+{
+background-color: #f3cb97;
+border-radius: 5px;
+text-align: center;
+}
+.leaderboard-prizes td:nth-child(1)
+{
+  width: 80%; 
+}
+.leaderboard-prizes td:nth-child(2)
+{
+  width: 20%;
+}

@@ -1,0 +1,49 @@
+
+.business_popup .grid-rows .box .box-content {
+  height: 100%;
+}
+.business_popup .grid-rows .box .box-content .rows-wrap .box-rows .name {  
+  text-transform: uppercase;
+}
+.grid-rows .box {  
+  margin-bottom: 3%;
+}
+.products_popup ul._list {    
+  padding: 0 15px 0 30px;
+  max-height: 370px;
+  overflow: auto;
+}
+.products_popup ._cont {  
+  padding: 30px 0;
+}
+.business_popup .grid-rows .box .box-content .rows-wrap .box-rows .profile-icon {
+  margin: 5px 0 14px 0;
+}
+.digital-briefcase .grid-rows .box .box-content {
+  width: 80%;
+}
+
+.slick-track .slick-slide:only-child {
+  -webkit-transform: scale(0.90);
+  -moz-transform: scale(0.90);
+  transform: scale(0.90);
+} 
+
+.slick-slide:first-child:nth-last-child(2),
+.slick-slide:first-child:nth-last-child(2) ~ .slick-slide {
+  opacity: 1;  
+  -webkit-transform: scale(0.90);
+  -moz-transform: scale(0.90);
+  transform: scale(0.90);
+}
+
+.slick-slide:first-child:nth-last-child(3),
+.slick-slide:first-child:nth-last-child(3) ~ .slick-slide {  
+  opacity: 1;   
+}
+
+.slick-slide:first-child:nth-last-child(3) ~ .slick-slide:nth-child(2) {
+  -webkit-transform: scale(1.75);
+  -moz-transform: scale(1.75);
+  transform: scale(1.75);
+}

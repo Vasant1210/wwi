@@ -1,0 +1,63 @@
+<div class="card-2 custom-popup pollstyle"   *ngIf="activePoll custom-popup">
+  <div class="card-header d-flex justify-content-between">
+
+    <h5 class="card-title ml-0 mb-0 font-weight-bold">Polls</h5>
+    <a href="javascript:void(0);" (click)="closePopup()" class="close-icon">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="card-body">
+    <ng-container *ngIf="shouldParticipate">
+      <ng-container *ngFor="let ques of activePoll.poll.question">
+          <div class="poll-question">
+            <h5 class=" font-weight-bold mb-3">{{ques.question}}</h5>
+            <ol class="poll-answer-list">
+              <ng-container *ngFor="let option of ques.option">
+                <li class="option-item">
+                  <input type="radio" value="{{option.question_id +'_'+ option.id}}" name="{{'question_'+ option.question_id}}" id="{{option.question_id +'_'+ option.id}}" (change)="onPollQuestionOptionSelect($event.target.value)">
+                  <label for="{{option.question_id +'_'+ option.id}}">{{option.option}}</label>
+                </li>
+              </ng-container>
+            </ol>
+          </div>
+        <div>
+          <div *ngIf="requiredAnswerError">
+            <div class="text-danger">All questions are mandatory</div>
+          </div>
+        </div>
+        <div class="w-100 text-center">
+          <button type="button" (click)="submitPoll(activePoll.pollId)" class="btn btn-primary">Submit</button>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="hasAttended">
+      <ng-container *ngFor="let ques of activePoll.poll.question">
+          <div class="poll-question mb-3">
+            <p class="text-success"  *ngIf="sucessMessage">{{sucessMessage}}</p>
+            <h5 class=" font-weight-bold mb-3">{{ques.question}}</h5>
+            <ol class="poll-answer-list readonly-mode">
+              <ng-container *ngFor="let option of ques.option">
+                <li>
+                  <label for="{{option.question_id +'_'+ option.id}}" [ngClass]="isMyAnswer(option.question_id ,option.id)">{{option.option}}</label>
+                </li>
+              </ng-container>
+            </ol>
+          </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="hasDeclared">
+      <ng-container *ngFor="let ques of activePoll.poll.question">
+          <div class="poll-question poll-result-declared mb-3">
+            <h5 class=" font-weight-bold mb-3">{{ques.question}}</h5>
+              <ol class="poll-answer-list readonly-mode">
+            <ng-container *ngFor="let option of ques.option">
+                <li>
+                  <label class="mr-4" for="{{option.question_id +'_'+ option.id}}"> <span>{{option.option}}</span> <span class="badge badge-secondary ">{{option.result.percentage}}%</span></label>
+                </li>
+            </ng-container>
+              </ol>
+          </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

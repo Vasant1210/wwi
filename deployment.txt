@@ -1,0 +1,3 @@
+Based on the environment change the environ file
+package.json
+for testing with subdirectory chnage app-init.servuce

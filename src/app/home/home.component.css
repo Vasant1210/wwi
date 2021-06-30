@@ -1,0 +1,60 @@
+.vide-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: block;
+    width: 100%;
+    min-height: 100%;
+}
+
+video {
+    object-fit: fill;
+}
+.btn-primary {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+
+    width: auto;
+}
+.hidden{
+	visibility:hidden;
+}
+.vimeo-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+background:black;
+    width: 100%;
+    height: 100%;
+    /*z-index: -1;
+  pointer-events: none;*/
+    overflow: hidden;
+}
+
+.vimeo-wrapper iframe {
+position: absolute;
+top: 0%;
+left: 0%;
+width: 100%;
+height: 90%;
+min-width: 100%;
+min-height: 90%;
+
+}
+.eventstyle{
+	right:61.5%;
+}
+@media only screen and (max-width : 820px) {
+.eventstyle{
+	right:0%;
+}
+}
+
+.highlightCameraView {
+    opacity: 1 !important;
+    background: url("../../assets/images/tick.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+}

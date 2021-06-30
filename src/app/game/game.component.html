@@ -1,0 +1,17 @@
+<div *ngIf="activeGame && !forceHide" class="">
+  <div class="overlay" id="gameModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-white" [ngStyle]="styleGuideBackground">
+          <h5 class="modal-title">{{activeGame.name}}</h5>
+          <button type="button" class="close text-white" (click)="forceClose()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <iframe frameborder="0" width="100%" height="450px" allowfullscreen="1" scrolling="no" marginheight="0" marginwidth="0" type="text/html" [src]="activeGame.url | sanitize: 'resourceUrl'"></iframe>
+        </div>
+      </div> <!-- end of model content-->
+    </div>
+  </div>
+</div>

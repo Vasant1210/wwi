@@ -1,0 +1,283 @@
+.received-chat-message-container {
+    text-align: right;
+}
+.received-chat-message-container .msg {
+    display: table;
+    float: left;
+    padding: 10px;
+    margin-bottom: 3px;
+
+    font-size: 1.5em;
+    font-weight: 600;
+    line-height: 1.2em;
+
+    color: #000;
+    border-radius: 5px;
+    background: #cfa76b;
+}
+.sent-chat-message-container {
+    text-align: left;
+}
+.sent-chat-message-container:before,
+.received-chat-message-container:before,
+.sent-chat-message-container:after,
+.received-chat-message-container:after {
+    display: table;
+    clear: both;
+
+    content: "";
+}
+
+.sent-chat-message-container .msg {
+    display: table;
+    float: right;
+    padding: 10px;
+    margin-bottom: 3px;
+
+    font-size: 1.5em;
+    font-weight: 600;
+    line-height: 1.2em;
+
+    color: #000;
+    border-radius: 5px;
+    background: #b5794b;
+}
+.received-chat-message-container .message-sent-date {
+    display: table;
+    float: left;
+
+    font-size: 1.4em;
+
+    color: #000;
+}
+.sent-chat-message-container .message-sent-date {
+    display: table;
+    float: right;
+
+    font-size: 1.4em;
+
+    color: #000;
+}
+.received-chat-message-container.type-business-card-request img {
+    display: inline-block;
+    width: 3.8em;
+    margin-right: 10px;
+
+    vertical-align: middle;
+}
+.received-chat-message-container.type-business-card-request .msg-wrapper {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 8em);
+    padding: 10px;
+
+    text-align: left;
+
+    border-radius: 5px;
+    background: #cfa76b;
+}
+.received-chat-message-container.type-business-card-request .msg {
+    display: inline-block;
+    float: none;
+    width: calc(100% - 54px);
+    padding: 0;
+
+    vertical-align: middle;
+
+    background: none;
+}
+.received-chat-message-container.type-business-card-request button {
+    float: right;
+    padding: 4px 8px;
+    margin-top: 15px;
+    margin-left: 5px;
+
+    font-size: 1.1em;
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    background: #ad7743;
+}
+.received-chat-message-container.type-business-card-request .message-sent-date {
+    display: block;
+    float: none;
+    width: 75%;
+
+    text-align: right;
+}
+.sent-chat-message-container .msg-wrapper {
+    width: calc(100% - 8em);
+    padding: 10px;
+
+    border-radius: 5px;
+    background: #b5794b;
+}
+.sent-chat-message-container .msg-wrapper .msg {
+    width: calc(100% - 60px);
+    padding: 0;
+    margin-top: -3px;
+
+    background: none;
+}
+.sent-chat-message-container .msg-wrapper img {
+    width: 3.8em;
+    margin-right: 10px;
+}
+.type-business-card.sent-chat-message-container .msg-wrapper {
+    float: right;
+}
+.type-business-card-request.sent-chat-message-container .msg-wrapper {
+  float: right;
+}
+.type-business-card-request.sent-chat-message-container .message-sent-date {
+    float: left;
+    width: 75%;
+    text-align: right;
+}
+.type-business-card.received-chat-message-container .msg-wrapper img {
+    display: inline-block;
+    width: 3.8em;
+    margin-right: 10px;
+
+    vertical-align: top;
+}
+.type-business-card.received-chat-message-container .msg-wrapper {
+    width: 90%;
+    padding: 10px;
+
+    text-align: left;
+
+    border-radius: 5px;
+    background: #cfa76b;
+}
+.type-business-card.received-chat-message-container .msg-wrapper .msg {
+    display: inline-block;
+    float: none;
+    width: calc(100% - 54px);
+    padding: 0;
+    margin-top: -3px;
+
+    text-align: left;
+
+    background: none;
+}
+.type-business-card.received-chat-message-container .message-sent-date {
+    width: 90%;
+
+    text-align: right;
+}
+.ng-chat-messages {
+    max-height: 32em;
+    min-height: 32em;
+    padding-top: 1em;
+    margin-top: 1em;
+    overflow: auto;
+}
+.ng-chat-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    width: 100%;
+    padding: 5px 10px 10px 15px;
+
+    border-radius: 0 0 20px 20px;
+    background: rgba(173, 119, 67, .8);
+
+    align-items: center;
+}
+.ng-chat-footer .business-card-btn {
+    margin-top: 0;
+    margin-right: 12px;
+}
+.chat-window-input::placeholder {
+    color: #000;
+    border: 0;
+}
+.chat-window-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 35px 0 15px;
+
+    font-size: 1.5em;
+    line-height: 36px;
+
+    color: #000;
+    border: 0;
+    border-radius: 10px;
+    background: rgba(237, 185, 119, .78);
+}
+.send-btn {
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
+}
+.business-option-list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    list-style-type: none;
+
+    border-radius: 0 0 20px 20px;
+}
+.business-option-list li {
+    padding: 1.8em 2.2em;
+
+    font-family: "Config";
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1em;
+
+    cursor: pointer;
+    text-transform: uppercase;
+
+    background: #ad7743;
+}
+.business-option-list li:first-child {
+    border-color: rgba(237, 185, 119, .4);
+    border-bottom: 1px solid;
+}
+.business-option-list li:last-child {
+    padding: 1.5em 2em;
+
+    text-align: center;
+
+    color: #fff;
+    background: #b77c49;
+}
+@media screen and (max-width: 1440px) {
+  .sent-chat-message-container .msg-wrapper .msg {
+    width: calc(100% - 48px);
+    padding: 0;
+    margin-top: -3px;
+    background: none;
+  }
+}
+@media screen and (max-width: 1024px) {
+    .ng-chat-footer {
+        border-radius: 0;
+    }
+    .ng-chat-messages {
+        max-height: calc(100vh - 20em);
+        min-height: calc(100vh - 20em);
+    }
+}
+.ng-chat-message {
+    margin-bottom: 10px;
+}
+
+.disableCardAction {
+    cursor:none !important;
+    background-color: #dd891b !important;
+}

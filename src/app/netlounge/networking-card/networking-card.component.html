@@ -1,0 +1,33 @@
+<div class="tbg cards-wrapper">
+  <a href="javascript:void(0);" aria-label="Close" (click)="closeSpeedNetworking()" class="close-icon">
+    <img src="./assets/images/close-icon.png" alt="Close Button" />
+  </a>
+  <div class="speednetwroking" *ngIf="matchingProfiles && matchingProfiles.length >0">
+    <!--*ngIf="matchingProfiles.length < index"-->
+    <div class="card-wrapper">
+      <app-shared-viewer-card [profile]="matchingProfiles[index+1]?.profile"></app-shared-viewer-card>
+    </div>
+    <div  *ngIf="index < matchingProfiles.length-2" class="card-wrapper-1" [@cardAnimator]="animationState"
+         (@cardAnimator.done)="resetAnimationState($event)"
+         (swipeleft)='startAnimation("swipeleft")'
+         (swiperight)='startAnimation("swiperight")'>
+      <app-shared-viewer-card [profile]="matchingProfiles[index]?.profile"></app-shared-viewer-card>
+    </div>
+
+    <div class="tcontrols" *ngIf="matchingProfiles.length > 0">
+      <div *ngIf="index < matchingProfiles.length-2" (click)='closeChat()' class="controls tno">
+        <img src="./assets/images/zone-left-arrow.png" alt="">
+        <span>Pass</span>
+      </div>
+      <div *ngIf="index < matchingProfiles.length-2" (click)='openChat()' class="controls tyes">
+        <span>Chat</span>
+        <img src="./assets/images/zone-right-arrow.png" alt="">
+      </div>
+      <div *ngIf="index >= matchingProfiles.length-2"></div>
+      <div *ngIf="index >= matchingProfiles.length-2"></div>
+    </div>
+  </div>
+</div>
+
+  
+

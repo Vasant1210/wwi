@@ -1,0 +1,51 @@
+<div class="card box-shadow login-registered-card" *ngIf="!otpEnable">
+  <div class="">
+    <h5 class="card-title">Log In</h5>
+    <form [formGroup]="loginForm" *ngIf="cform && cform.fields " (ngSubmit)="onSubmit()">
+      <ng-container [ngSwitch]="loginFieldType">
+        <div class="form-group" *ngSwitchCase="'number'">
+          <label class="font-weight-bold" for="login_field">{{loginFieldLabel}}</label>
+          <input type="text" maxlength="10" formControlName="login_field" placeholder="Enter" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.login_field.errors }" />
+          <div *ngIf="submitted && f.login_field.errors" class="invalid-feedback error-text">
+            <div *ngIf="f.login_field.errors.required">{{loginFieldLabel}} is required</div>
+            <div *ngIf="f.login_field.errors.pattern">Please enter the correct value of {{loginFieldLabel}}</div>
+          </div>
+        </div>
+        <div class="form-group" *ngSwitchDefault>
+          <label class="font-weight-bold" for="login_field">{{loginFieldLabel}}</label>
+          <input type="{{loginFieldType}}" formControlName="login_field" placeholder="Enter" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.login_field.errors }" />
+          <div *ngIf="submitted && f.login_field.errors" class="invalid-feedback error-text">
+            <div *ngIf="f.login_field.errors.required">{{loginFieldLabel}} is required</div>
+            <div *ngIf="f.login_field.errors.email">Email is invalid</div>
+            <div *ngIf="f.login_field.errors.pattern">Please enter the correct value of email/mobile</div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="password_enable==1">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback error-text">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="error">
+        <div class="alert error-text alert-danger mt-3 mb-0">{{error}}</div>
+      </ng-container>
+      <div class="form-group text-center">
+        <button class="btn-submit" *ngIf="webcast.otpEnable" type="submit" [ngStyle]="theme.theme_button_primary_style">Verify</button>
+        <button [disabled]="loading" *ngIf="!webcast.otpEnable" class="btn-submit" [ngStyle]="theme.theme_button_primary_style">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          VERIFY
+        </button>
+      </div>
+      <span class="label-with-link text-center d-block">
+        Don’t have an account?
+        <a *ngIf="webcast" href="javascript:;" (click)="onRegisterClick()">REGISTER</a>
+      </span>
+    </form>
+    
+  </div>
+</div>
+<app-otpverification *ngIf="otpEnable" [loginField]="otpVerificationfield" (onResend)="onSubmit()" (onBack)="hideOtpControl()" (onSuccess)="onOtpVerified()"></app-otpverification>

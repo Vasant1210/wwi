@@ -1,0 +1,52 @@
+  <a class="nav-link dropdown-toggle   mr-4" href="javascript:void(0);" id="navbarDropdown" (click)="markAsRead()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="notification-alert-bell-icon" *ngIf="showNotifyAlert"></span>
+    <span class="svg-icon main_header_notifications notifications"></span>
+  </a>
+<div class="dropdown-menu"  aria-labelledby="navbarDropdown">
+  <div class="">
+    <div class="d-flex  justify-content-between title-wrapper align-items-center">
+      <h4 class="mb-0 card-title">Notifications</h4>
+      <a href="javascript:void(0);" class="close-icon">
+        <img src="./assets/images/close-icon.png" alt="Close Button" />
+      </a>
+    </div>
+    <div class="ps directive-scroll" [perfectScrollbar]="scrollConfig" [disabled]="isMobile?true:false">
+      <ul class="notification-list">
+        <li *ngFor="let message of messageList" (click)="preventClose($event)">
+          <span class="d-flex justify-content-between align-items-center">
+            <span class="notification-title">{{message.title}}</span>
+            <span class="notification-time">{{message.created_at | date: 'h:mm a'}}</span>
+          </span>
+          <span class="notification-text" [innerHTML]="message.message | sanitize: 'html'"> 
+          </span>
+          <p *ngIf="message.action=='BusinesscardRequest' && message.date_seen==null" class="notification-text">
+            <button  (click)="sendCard($event,message)" class="btn btn-send btn-sm">Send</button>
+            <button  (click)="ignoreCard($event,message)" class="btn btn-send btn-sm">Ignore</button>
+          </p>
+          
+        </li>
+      </ul>
+    </div>
+      </div>
+    </div>
+<div *ngIf="showElement && popupAlertMessage">
+  <div class="push-notifications-wrapper">
+    <div>
+      <span class="d-flex justify-content-between align-items-center">
+        <span class="push-notification-title">{{popupAlertMessage.title}}</span>
+        <span class="push-notification-time">{{popupAlertMessage.created_at | date: 'h:mm a'}}</span>
+      </span>
+      <br />
+      <span class="push-notification-text" [innerHTML]="popupAlertMessage.message | sanitize: 'html'">
+        
+      </span>
+
+      
+    </div>
+    <div class="text-right">
+      <a href="javascript:void(0);" (click)="dismisspopupAlert()" class="close-icon">
+        Dismiss
+      </a>
+    </div>
+  </div>
+</div>

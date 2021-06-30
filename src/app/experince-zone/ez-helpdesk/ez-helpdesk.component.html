@@ -1,0 +1,10 @@
+<div class="popup-wrap products_popup popup_opened">
+  <div class="_head">
+    <a href="javascript:void(0)"  class="_close"></a>
+  </div>
+  <div class="_cont">
+    <div class="stallHelpdesk">
+      <iframe [src]="helpdesk_key | sanitize: 'resourceUrl'" [ngClass]="getStatusClass()" frameborder="0"></iframe>
+    </div>
+  </div> <!-- _cont -->
+</div>

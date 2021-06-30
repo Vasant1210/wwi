@@ -1,0 +1,135 @@
+.box .box-content {
+    position: relative;
+
+    display: table;
+    width: 71%;
+    height: 14vw;
+    padding: 3px;
+    margin: 0 auto;
+
+    border-radius: 10px;
+    background: #bc8951;
+}
+@media only screen and (min-width:1680px) and (max-width:1920px) {
+    .box .box-content {
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width:1440px) and (max-width:1680px) {
+    .box .box-content {
+        width: 80%;
+        height: 15vw;
+    }
+}
+
+.box .box-content::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+
+    overflow: hidden;
+
+    content: "";
+
+    border-radius: 10px;
+    background: #f7eac6;
+    background:    -moz-radial-gradient(center,ellipse cover,#f7eac6 0,#ebaa2b 100%);
+    background: -webkit-gradient(radial,center center,0,center center,100%,color-stop(0%,#f7eac6),color-stop(100%,#ebaa2b));
+    background: -webkit-radial-gradient(center,ellipse cover,#f7eac6 0,#ebaa2b 100%);
+    background:      -o-radial-gradient(center,ellipse cover,#f7eac6 0,#ebaa2b 100%);
+    background:     -ms-radial-gradient(center,ellipse cover,#f7eac6 0,#ebaa2b 100%);
+    background:         radial-gradient(ellipse at center,#f7eac6 0,#ebaa2b 100%);
+
+    filter: progid:dximagetransform.Microsoft.gradient(startColorstr="#f7eac6", endColorstr="#ebaa2b", GradientType=1);
+}
+
+.box .box-content .rows-wrap {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    height: 100%;
+    padding: 16px;
+    flex-direction: column;
+
+    border-radius: 10px;
+    background: #bc8951;
+}
+
+@media only screen and (min-width:1440px) and (max-width:1680px) {
+    .box .box-content .rows-wrap {
+        padding: 11px;
+    }
+}
+@media only screen and (min-width:1440px) and (max-width:1920px) {
+    .box .box-content {
+        width: 85%;
+    }
+}
+
+.box .box-content .rows-wrap .box-rows {
+    text-align: center;
+}
+
+.box .box-content .rows-wrap .box-rows .profile-icon {
+    width: 83px;
+    height: 83px;
+    margin: 14px 0;
+
+    border: 3px solid #fff;
+    border-radius: 100%;
+
+    object-fit: cover;
+}
+.box .box-content .rows-wrap .box-rows .card-details {
+    width: 200px;
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+
+    word-break: break-word;
+}
+.box .box-content .rows-wrap .box-rows .card-details li {
+    margin-bottom: 8px;
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    color: #fff;
+}
+
+.box .box-content .rows-wrap .box-rows .card-details li.name {
+    font-size: 1.3rem;
+    font-weight: 600;
+
+    letter-spacing: .5px;
+
+    color: #fff;
+}
+
+.box .box-content .rows-wrap .box-rows .card-details li.company {
+    margin-bottom: 12px;
+
+    font-size: 1.2rem;
+}
+
+.business_popup .summary {
+    display: block;
+    margin: 10px 0 20px;
+
+    font-size: 1.1rem;
+
+    text-align: center;
+
+    color: #000;
+}
+
+.business_popup .btn {
+    margin-bottom: 10px;
+}

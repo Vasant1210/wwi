@@ -1,0 +1,30 @@
+<div id="app">
+  <main class=" main-section" *ngIf="webcast && theme" [ngStyle]="theme.content_bg_style">
+
+    <ng-container *ngIf="theme && theme.content_bg_video">
+      <video playsinline="playsinline" id="custom-form-main-body-background-video" muted [muted]="'muted'"  class="video-player" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="{{theme.content_bg_video}}" type="video/mp4">
+      </video>
+    </ng-container>
+    <div class="container-fluid">
+      <div *ngIf="theme.content_banner_image" class="">
+        <div class="text-center">
+          <img src="{{theme.content_banner_image}}" class="img-fluid d-inline" alt="">
+        </div>
+      </div>
+
+      <div class="row justify-content-sm-end justify-content-xs-center">
+        <div class="col-lg-12 col-sm-8 col-12">  
+          
+            <app-profile (close)="onSubmitSucess()"></app-profile> 
+            </div>
+                </div>
+
+    </div>
+
+  </main>
+</div>
+
+
+
+

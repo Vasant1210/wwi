@@ -1,0 +1,103 @@
+<div class="inner-tab">
+    <ul class="nav nav-pills mb-3" id="media-image-video" role="tablist">
+      <li class="nav-item" *ngIf="hasImages">
+        <a class="nav-link text-uppercase" [ngClass]="{'active':hasImages}" id="pills-image-tab" data-toggle="pill" href="#pills-image" role="tab" aria-controls="pills-image" aria-selected="true">Images</a>
+      </li>
+      <li class="nav-item" *ngIf="hasVideos">
+        <a class="nav-link text-uppercase" [ngClass]="{'active':!hasImages}" id="pills-video-tab" data-toggle="pill" href="#pills-video" role="tab" aria-controls="pills-video" aria-selected="false">Video</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent-images">
+      <div class="tab-pane fade" [ngClass]="{'show active':hasImages}" id="pills-image" role="tabpanel" aria-labelledby="pills-image-tab">
+        <div class="grid-rows">
+          <div class="box" *ngFor="let _media of images; let j = index" (dblclick)="openGallery(j)">
+            <div class="box-content">
+              <div class="rows-wrap _media">
+                <div class="box-rows" (click)="openGallery(j)">
+                  <img src="{{_media?.thumbnail}}" class="img-fluid doc" alt="">
+                </div>
+                <div class="box-rows" (click)="openGallery(j)" *ngIf="showTitle">
+                  <h5 class="desc">{{_media?.name}}</h5>
+                </div>
+                <div class="box-rows" *ngIf="hasAction">
+                  <ul class="links">
+                    <li *ngIf="canDownload">
+                      <a href="{{_media?.file_name}}" (click)="onDownload()" download target="_blank">
+                        <img src="./assets/images/download.svg" alt="">
+                        <span>DOWNLOAD</span>
+                      </a>
+                    </li>
+                    <li *ngIf="canDelete">
+                      <a href="javascript:void(0);" (click)="delete(_media)">
+                        <img src="assets/images/note-delete.png" alt="">
+                      </a>
+                    </li>
+                    <li *ngIf="canAdd">
+                      <a href="javascript:void(0)" (click)="add(_media)">
+                        <img src="./assets/images/save.png" alt="">
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div> <!-- box -->
+        </div>
+      </div>
+      <div class="tab-pane fade" [ngClass]="{'show active':!hasImages}" id="pills-video" role="tabpanel" aria-labelledby="pills-video-tab">
+        <div class="grid-rows">
+          <div class="box" *ngFor="let _media of videos; let j = index">
+            <div class="box-content">
+              <div class="rows-wrap _media">
+                <div class="box-rows videos">
+                  <img src="{{_media?.thumbnail}}" class="img-fluid doc" />
+                  <button  class="play-icon" (click)="setCurrentVideo(_media?.file_name)">
+                    <img src="./assets/images/play-button.png" class="img-fluid" />
+                  </button>
+                </div>
+                <div class="box-rows" (click)="resetCurrentVideo(_media.file_name)"  *ngIf="showTitle">
+                  <h5 class="desc" (click)="resetCurrentVideo(_media.file_name)">{{_media?.name}}</h5>
+                </div>
+                <div class="box-rows" *ngIf="hasAction">
+                  <ul class="links">
+                    <li *ngIf="canDownload">
+                      <a href="{{_media?.file_name}}" (click)="onDownload()" download target="_blank">
+                        <img src="./assets/images/download.svg" alt="">
+                        <span>DOWNLOAD</span>
+                      </a>
+                    </li>
+                    <li *ngIf="canDelete">
+                      <a href="javascript:void(0);" (click)="delete(_media)">
+                        <img src="assets/images/note-delete.png" alt="">
+                      </a>
+                    </li>
+                    <li *ngIf="canAdd">
+                      <a href="javascript:void(0)" (click)="add(_media)">
+                        <img src="./assets/images/save.png" alt="">
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div> <!-- box -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+<ng-container *ngIf="sliderImages && sliderImages.length >0">
+  <ngx-image-gallery #ngxImageGallery [conf]="conf" (onOpen)="galleryOpened($event)"
+                     (onClose)="galleryClosed()"></ngx-image-gallery>
+</ng-container>
+<ng-container *ngIf="currently_playing_video">
+  <div class="galleryModalVideoPopup" id="galleryModalVideoPopup" #galleryModalVideoPopup tabindex="-1">
+    <a href="javascript:void(0);" aria-label="Close" (click)="closeVideoPopup()" class="close-icon">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+    <iframe id="gallery_currently_playing_video"
+            [src]="currently_playing_video | sanitize: 'resourceUrl'"
+            frameborder="0" allowfullscreen>
+    </iframe>
+  </div>
+</ng-container>

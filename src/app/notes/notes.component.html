@@ -1,0 +1,23 @@
+<div class="card-2 custom-popup notestyle">
+  <div class="card-header d-flex justify-content-between">
+    
+    <h5 class="card-title ml-2 mb-0">Take a Note</h5>
+    <a href="javascript:void(0);" (click)="closePopup()" class="close-icon">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="card-body">
+    <textarea maxlength="1000" class="form-control transparent" (focus)="resetLoading('')" placeholder="Start typing your note..." name="txtquestion" id="txtquestion" rows="4" [formControl]="txtquestion" col="50"> </textarea>
+    <div *ngIf="submitted" class="invalid-feedback error-text d-block">
+      <div *ngIf="checkError('required')">Note text is required</div>
+    </div>
+    <div>
+      <div *ngIf="success" class="text-success mt-3 mb-0">{{success}}</div>
+      <div *ngIf="error" class="error-text mt-3 mb-0">{{error}}</div>
+    </div>
+    <div class="text-center pt-2">
+      <button (click)="addRemark()" class="btn btn-primary"><span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit!</button>
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,49 @@
+.leaderboard-pointsystem,.leaderboard-pointsystem th,.leaderboard-pointsystem td {
+  border: 0px;
+  padding: 5px;
+  text-align: center;
+}
+.leaderboard-pointsystem {
+  border-spacing: 5px;
+  border-collapse: unset;
+}
+.leaderboard-pointsystem td
+{
+background-color: #f3cb97;
+border-radius: 5px;
+text-align: center;
+}
+.leaderboard-pointsystem td:nth-child(1)
+{
+  width: 80%;
+}
+.leaderboard-pointsystem td:nth-child(2)
+{
+  width: 20%;
+}
+.leaderboard-gradesystem,.leaderboard-gradesystem th,.leaderboard-gradesystem td {
+  border: 0px;
+  padding: 5px;
+  text-align: center;
+}
+.leaderboard-gradesystem {
+  border-spacing: 5px;
+  border-collapse: unset;
+}
+  .leaderboard-gradesystem td
+  {
+    text-align: center;
+  }
+
+  .leaderboard-gradesystem tbody{
+    background-color: #f3cb97;
+  }
+  leaderboard-gradesystem #heading th
+  {
+    text-align: center;
+  }
+  
+  .leaderboard-gradesystem td
+  {
+    text-align: center;
+  }

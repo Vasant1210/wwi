@@ -1,0 +1,139 @@
+
+.inner-tab {
+    position: relative;
+}
+.inner-tab .tab-content {
+    margin: 20px 0;
+}
+.inner-tab .nav-tabs {
+    margin-bottom: 10px;
+
+    border-bottom: none;
+}
+.inner-tab .nav-link {
+    position: relative;
+
+    padding: .5em 1.2em;
+
+    font-family: "Calibri";
+    font-size: 2.3em;
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    color: rgba(0, 0, 0, .5);
+    border: none;
+    background: transparent;
+}
+.inner-tab .nav-link.active {
+    position: relative;
+
+    padding: .5em 1.2em;
+
+    font-family: "Calibri";
+    font-size: 2.3em;
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    color: #000;
+    border: none;
+    background: transparent;
+}
+
+.inner-tab .nav-link.active::before {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 14px);
+
+    display: block;
+    width: 28px;
+    height: 4px;
+
+    content: "";
+
+    border-radius: 2px;
+    background-color: #000;
+}
+
+ul.agenda-speakers-images,
+ul.agenda-speakers-videos {
+    padding-left: 0 !important;
+
+    list-style: none;
+}
+ul.agenda-speakers-images li {
+    display: inline-block !important;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0 2.7em 2.7em 0;
+    overflow: hidden;
+
+    border-radius: 20px;
+}
+.modal-body {
+    padding: 10px 0;
+}
+
+ul.agenda-speakers-videos li {
+  position: relative;
+  display: inline-block !important;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 0 2.7em 2.7em 0;
+
+  border-radius: 20px;
+}
+ul.agenda-speakers-videos li img{
+  margin: 0px;
+  border-radius: 20px;
+}
+ul.agenda-speakers-videos li .play-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 50px;
+    height: 50px;
+    margin: auto;
+
+    line-height: 50px;
+
+    text-align: center;
+
+    border-radius: 25px;
+    background-color: rgba(19, 18, 13, .52);
+}
+.galleryModalVideoPopup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  display: block;
+  background-color: rgba(13, 13, 14, .85);
+}
+
+  .galleryModalVideoPopup iframe {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .galleryModalVideoPopup .close-icon {
+    position: absolute;
+    right: 0;
+    z-index: 2;
+    padding: 15px;
+    margin: 15px;
+    opacity: 1;
+    border-radius: 30px;
+    background: rgba(240, 185, 118, .9) !important;
+  }
+@media all and (max-width: 992px) {
+  .galleryModalVideoPopup .close-icon {
+    top: 30px;
+  }
+}

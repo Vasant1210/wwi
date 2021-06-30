@@ -1,0 +1,39 @@
+.leaderboard-level,.leaderboard-level th,.leaderboard-level td {
+    border: 0px;
+    padding: 5px;
+    text-align: center;
+  }
+  .leaderboard-level {
+    border-spacing: 5px;
+    border-collapse: unset;
+  }
+  .leaderboard-level td
+  {
+  background-color: #f3cb97;
+  border-radius: 5px;
+  text-align: center;
+  }
+  .leaderboard-level td:nth-child(1)
+  {
+    width: 10%;
+    font-weight: 800;
+  }
+  .leaderboard-level td:nth-child(2)
+  {
+    width: 50%;
+  }
+  .leaderboard-level td:nth-child(3)
+  {
+    width: 25%;
+  }
+  .leaderboard-level td:nth-child(4)
+  {
+    width: 15%;
+  }
+
+  .highlight td
+  {
+  background-color: #be7617; 
+  
+  }
+ 

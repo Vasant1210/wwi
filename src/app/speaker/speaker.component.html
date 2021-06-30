@@ -1,0 +1,30 @@
+<div class="custom-modal-wrapper">
+  <div class="modal-header">
+    <h5 class="modal-title">Speakers</h5>
+    <a href="javascript:void(0);" class="close-icon" data-dismiss="modal" >
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="modal-body">
+    <div class="row justify-content-center">
+      <div class="col-custom-80">
+        <perfect-scrollbar class="popup_scoll">
+         <div class="speaker-list" *ngFor="let speaker of speakers">
+          <div class="d-flex">
+          	<div class="speaker-thumbnail">
+              <img src="{{renderDefaultProfilePic(speaker)}}"class="img-fluid" />
+          	</div>
+          	<div class="speaker-description">
+            	<p class="speaker-name">{{speaker.spe_name}}</p>         
+            	<p class="speaker-company">{{speaker.spe_company_name}}</p>
+            	<p class="speaker-position">{{speaker.spe_designation}}</p>
+              <p class="speaker-bio">{{speaker.spe_bio}}</p>
+          	</div>
+          </div>
+         </div>
+        </perfect-scrollbar>
+
+      </div>
+    </div>
+  </div>
+</div>

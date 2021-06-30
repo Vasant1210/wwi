@@ -1,0 +1,158 @@
+<ngx-spinner [color]="'#ae7744'" [type]="'fire'"></ngx-spinner>
+  <div id="app" class="experience-page">
+ <!-- <a href="javascript:void(0)" *ngIf="webcast && hasWidget('speed_networking')" (click)="openPopup('networking_popup')" id="networking_btn" class="header_speednetworking">
+    <img src="./assets/images/speed-net.png" alt="speed networking"><span class="ml-2"> Speed Networking</span>
+  </a> -->
+  <main class="wrapper bg3" [ngClass]="{'fullPagePopup':activeMode == 'networking_popup'}" style="background-image: linear-gradient(rgba(0, 0, 0, 0.35) 5%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0)), url('{{lounge_bgimage}}');">
+    <div class="content" *ngIf="activeMode != 'networking_popup'">
+      <ul class="home-buttons">
+        <li>
+          <a href="javascript:void(0)" (click)="openPopup('schedule_popup')" id="schedule_btn">
+            <img src="{{lounge_schedule_image}}" alt="">
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" (click)="openPopup('attend_popup')" id="attend_btn">
+            <!--<img src="./assets/images/attend.png" alt="">-->
+            <img src="{{lounge_attende_image}}" alt="">
+          </a>
+        </li>
+      </ul>
+
+    </div> <!-- content -->
+    <app-networking-card *ngIf="activeMode == 'networking_popup'" (onCloseSpeedNetworking)="closePopup()"></app-networking-card>
+
+  </main>
+  <!--  <div class="popup-wrap popup_closed" id="schedule_popup">-->
+  <div class="popup-wrap schedule_popup popup_opened" *ngIf="activeMode == 'schedule_popup'">
+    <div class="_head">
+      <h4 class="title">Schedule a meeting</h4>
+      <a href="javascript:void(0)" (click)="closePopup()" class="_close"></a>
+    </div>
+    <div class="_cont">
+      <div>
+        <!--<div *ngIf="success" class="text-success mt-3 mb-0">{{success}}</div>-->
+        <div *ngIf="error" class="error-text mt-3 mb-0">{{error}}</div>
+      </div>
+      <div class="text-center mt-3" *ngIf="isLoaded && !speakers || (speakers && speakers.length<=0)">
+        <h6 class="description">There are no meeting slots available currently. Please check back later for updated slots.</h6>
+        <h6 class="title">THANK YOU</h6>
+      </div>
+      <div class="slots-row" *ngIf="speakers && speakers.length>0">
+        <div class="slot-col">
+          <div class="collapse-box opened">
+            <!-- add/remove opened class to show hide toggle -->
+            <h4 class="title" *ngIf="speakers && speakers.length>0" onclick="toggle_dropdown('hosts_list')">CHOOSE A HOST</h4>
+            <ul class="_list" id="hosts_list">
+              <li *ngFor="let speaker of speakers">
+                <input type="radio" name="hosts" [checked]="(selectedSpeaker &&  selectedSpeaker.id == speaker.id) ? true : false" id="r_{{speaker.id}}" class="inp_radio" value="{{speaker.id}}">
+                <label for="r_{{speaker.id}}" (click)="loadMeetingSlot(speaker.id)">{{speaker.spe_name}}</label>
+              </li>
+            </ul>
+          </div> <!-- collapse-box -->
+        </div> <!-- slot-col -->
+
+        <div class="slot-col">
+          <div class="collapse-box opened">
+            <h4 class="title" onclick="toggle_dropdown('time_slot')" *ngIf="speakerMeetingSlot">CHOOSE TIME SLOT</h4>
+            <ul class="_list" id="time_slot">
+              <li *ngFor="let _speakerMeetingSlot of speakerMeetingSlot">
+                <input type="radio" name="time_slot" id="rc_{{_speakerMeetingSlot.id}}" class="inp_radio" value="{{_speakerMeetingSlot.id}}">
+                <label for="rc_{{_speakerMeetingSlot.id}}" (click)="onSelectSlot(_speakerMeetingSlot)">Day {{_speakerMeetingSlot.num_day}} ({{_speakerMeetingSlot.start_time | date:'M/d/yyyy'}}) - {{_speakerMeetingSlot.start_time | date:'h:mm a'}}  - {{_speakerMeetingSlot.end_time | date:'h:mm a'}}</label>
+              </li>
+            </ul>
+          </div> <!-- collapse-box -->
+        </div> <!-- slot-col -->
+
+      </div>
+      <div class="sbt-btn">
+        <button class="btn-primary" (click)="addViewerSpeakerMeeting()" *ngIf="selectedSlot">SUBMIT</button>
+      </div>
+    </div> <!-- _cont -->
+  </div> <!-- popup-wrap -->
+  <div class="popup-wrap thank_you_popup" *ngIf="activeMode == 'thank_you_popup' && selectedSlot">
+    <div class="_cont">
+      <h1 class="title">THANK YOU</h1>
+      <h3 class="description">Your meeting has been scheduled with {{speaker_name}} from {{selectedSlot.start_time | date:'h:mm a'}}  to {{selectedSlot.end_time | date:'h:mm a'}}</h3>
+      <span class="summary"> Your meeting will reflect in "Attend a meeting" tab once the meeting has been confirmed. You will also receive a notification on the platform.</span>
+      <div class="sbt-btn">
+        <button (click)="closePopup('thank_you_popup')" class="btn-primary">GOT IT</button>
+      </div>
+    </div> <!-- _cont -->
+  </div> <!-- popup-wrap -->
+
+  <div class="popup-wrap attend_popup" *ngIf="activeMode == 'attend_popup'" [ngClass]="{'no-meetings':viewerMeetingSchedule && viewerMeetingSchedule.length <=0}">
+    <div class="_head">
+      <h4 class="title">Attend a meeting</h4>
+      <a href="javascript:void(0)" (click)="closePopup('attend_popup')" class="_close"></a>
+    </div>
+    <div class="_cont">
+      <ul class="_list" *ngIf="viewerMeetingSchedule && viewerMeetingSchedule.length>0">
+        <li *ngFor="let _viewerMeetingSchedule of viewerMeetingSchedule">
+          <input type="radio" name="schedules" id="ra_{{_viewerMeetingSchedule.id}}" [disabled]="cannotJoin(_viewerMeetingSchedule.start_time)" class="inp_radio" value="{{_viewerMeetingSchedule.id}}">
+          <label for="ra_{{_viewerMeetingSchedule.id}}" (click)="onSelectSchedule(_viewerMeetingSchedule)">{{_viewerMeetingSchedule.speaker.spe_name}} at {{_viewerMeetingSchedule.start_time | date:'M/d/yyyy'}} - {{_viewerMeetingSchedule.start_time | date:'h:mm a'}} - {{_viewerMeetingSchedule.end_time | date:'h:mm a'}}</label>
+        </li>
+      </ul>
+      <h5 *ngIf="viewerMeetingSchedule && viewerMeetingSchedule.length<=0">No meeting schedules available!</h5>
+      <div class="sbt-btn">
+        <a href="{{selectedSchedule.meeting_link}}" target="_blank" (click)="showScheduleDetails()" class="btn-primary" *ngIf="selectedSchedule">JOIN</a>        
+      </div>
+    </div> <!-- _cont -->
+  </div> <!-- popup-wrap -->
+
+  <div class="popup-wrap join_popup" *ngIf="activeMode == 'join_popup' && selectedSchedule">
+    <div class="_head">
+      <h4 class="title">Attend a meeting</h4>
+      <a href="{{selectedSchedule.meeting_link}}" target="_blank" (click)="closePopup('join_popup')" class="_close"></a>
+    </div>
+    <div class="_cont">
+      <ul class="_list" *ngIf="viewerMeetingSchedule">
+        <li>
+          <span class="summary">Meeting Link - {{selectedSchedule.meeting_link}} </span>
+        </li>
+        <li>
+          <span class="summary">Meeting ID - {{selectedSchedule.meeting_id}} </span>
+        </li>
+        <li>
+          <span class="summary">Meeting Password - {{selectedSchedule.meeting_password}} </span>
+        </li>
+      </ul>
+      <div class="sbt-btn">
+        <button (click)="closePopup('join_popup')" class="btn-primary">Got It</button>
+      </div>
+    </div> <!-- _cont -->
+  </div> <!-- popup-wrap -->
+  <div class="popup-overlay" *ngIf="activeMode != ''" (click)="closePopup('')"></div>
+  <footer class="d-flex justify-content-between align-items-center">
+
+    <a href="javascript:void(0);" *ngIf="webcast" routerLink="/{{webcast.webcast_id}}/lobby" class="exit-link d-flex align-items-center m-2"><img class="img-fluid" src="assets\images\exit-icon.png" /><span class="ml-2 ">EXIT To lobby</span></a>
+
+    <ul class="main-footer w-100 nav"> 
+      <li class="nav-item dropdown" *ngIf="currentUser && hasWidget('speed_networking')">
+        <a class="nav-link network_lounge_speed_netwroking" href="#" id="navbarDropdown" (click)="startTour()" id="networking_btn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="svg-icon sn"></span>
+          <span class="d-flex">
+            SPEED NETWORKING
+          </span>
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+        </div>
+      </li>
+
+      <li class="nav-item dropdown" *ngIf="currentUser">
+        <app-chatbox *ngIf="!hasWidget('x_chat')"></app-chatbox>
+        <span class="chat-alert-bell-icon" *ngIf="showChatAlert"></span>
+        <a class="nav-link" href="#" id="navbarDropdown" (click)="toggleChat()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="svg-icon chat"></span>
+          <span class="d-flex">
+            CHAT
+          </span>
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+        </div>
+      </li>
+    </ul>
+  </footer>
+</div>
+<ngx-guided-tour *ngIf="currentUser"  skipText ="" progress-indicator-location="ProgressIndicatorLocation.TopOfTourBlock" doneText="Got It" ></ngx-guided-tour>
+

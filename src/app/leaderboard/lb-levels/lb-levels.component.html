@@ -1,0 +1,32 @@
+<div class="row justify-content-center">
+    <div class="col-custom-80">   
+      <div width="100%" style="display:flex" *ngIf="userStats">
+        <table style="width:100%" class="leaderboard-level" >
+          <tr>
+            <th>POSITION</th>
+            <th>NAME</th>
+            <th>POINTS</th>
+            <th>GRADE</th>        
+          </tr>    
+       <tr *ngFor="let _userStats of userStats | slice: 0:10 ;let i = index" [ngClass]="{'highlight':_userStats.viewer_id ==  current_user_id}" >        
+            <td >{{i+1}}</td>
+            <td>{{_userStats.viewer_name}}</td>
+            <td >{{_userStats.score}}</td>
+            <td>{{getUserGrade(_userStats.score)}}</td> 
+          </tr>
+          <tr *ngIf="userStats.length > 10" class="highlight" >        
+            <td>{{userStats[10]?.rank}}</td>
+            <td>{{userStats[10]?.viewer_name}}</td>
+            <td>{{userStats[10]?.score}}</td>
+            <td>{{getUserGrade(userStats[10]?.score)}}</td> 
+          </tr>
+        </table> 
+        </div>
+        <div class="text-center">
+        <p>Earn Maximum points to win exciting prizes</p>
+      </div>
+    </div>
+
+    </div>
+
+ 

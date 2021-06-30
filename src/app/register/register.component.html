@@ -1,0 +1,96 @@
+<div class="card  box-shadow login-registered-card" *ngIf="page_mode=='registerForm'">
+  <h5 class="card-title">Register</h5>
+  
+    <ng-container *ngIf="cform.fields && cform.fields.length > 0">
+      <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+        <perfect-scrollbar class="popup_scoll" #perfectScroll >
+          <ng-container *ngFor="let field of cform.fields">
+            <ng-container [ngSwitch]="field.type">
+              <div class="form-group" *ngSwitchCase="'select'">
+                <label class="font-weight-bold" for="{{field.fldname}}">{{field.label}}</label>
+                <select class="form-control" (change)="changeOption($event,field.fldname)">
+                  <option value="" disabled>Choose your {{field.placeholder}}</option>
+                  <option *ngFor="let option of getOptionArray(field.options)" [ngValue]="option">{{option}}</option>
+                </select>
+                <input [type]="text" formControlName="{{field.fldname}}" [ngClass]="showHideOthers(field.fldname)" class="form-control mt-2" placeholder="{{field.placeholder}}" />
+                <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback error-text d-block">
+                  <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                </div>
+              </div>
+
+              <div class="mb-4" *ngSwitchCase="'radio'">
+                <span class="mr-2">{{field.label}}</span>
+                <div *ngFor="let option of getOptionArray(field.options)" class="mr-2 form-check-inline">
+                  <input type="{{field.type}}" name="{{field.fldname}}" formControlName="{{field.fldname}}" value="{{option}}" class="form-check-input" placeholder="{{field.placeholder}}" />
+                  <label class="form-check-label" for="{{option}}">{{option}}</label>
+                </div>
+                <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback error-text d-block mb-2">
+                  <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                </div>
+              </div>
+              <div class="mb-4 form-check" *ngSwitchCase="'checkbox'">
+                <input type="{{field.type}}" formControlName="{{field.fldname}}" value="{{field.label}}" class="form-check-input" placeholder="{{field.placeholder}}" />
+                <label class="form-check-label" for="{{field.fldname}}">{{field.label}}</label>
+                <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback error-text d-block">
+                  <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                </div>
+              </div>
+              <div class="form-group" *ngSwitchCase="'number'">
+                <label class="font-weight-bold" for="{{field.fldname}}">{{field.label}}</label><span *ngIf="field.required == 'true'">*</span>
+                <input type="text" maxlength="10" formControlName="{{field.fldname}}" class="form-control" placeholder="{{field.placeholder}}" />
+                <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback error-text d-block">
+                  <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                  <div *ngIf="checkError(field.fldname,'pattern')">Please enter the correct value of {{field.label}}</div>
+                </div>
+              </div>
+              <div class="form-group" *ngSwitchDefault>
+                <label class="font-weight-bold" for="{{field.fldname}}">{{field.label}}</label><span *ngIf="field.required == 'true'">*</span>
+                <input type="{{field.type}}" formControlName="{{field.fldname}}" class="form-control" placeholder="{{field.placeholder}}" />
+                <div *ngIf="submitted && !showValidationSummary" class="invalid-feedback error-text d-block">
+                  <div *ngIf="checkError(field.fldname,'required')">{{field.label}} is required</div>
+                  <div *ngIf="field.type== 'email' && checkError(field.fldname,'email')">{{field.label}} is invalid</div>
+                  <div *ngIf="checkError(field.fldname,'pattern')">Please enter the correct value of {{field.label}}</div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </perfect-scrollbar>
+        <ng-container >
+          <div *ngIf="error" class="alert alert-danger mt-0 mb-0">{{error}}</div>
+          <div *ngIf="submitted && regForm.invalid" class="alert alert-danger mt-0 mb-0">Please enter your mandatory fields to complete registration process</div>
+        </ng-container>
+
+          <div class="form-group text-center">
+            <button [disabled]="loading" class="btn-submit" [ngStyle]="theme_background">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Submit
+            </button>
+          </div>
+          <span class="label-with-link text-center d-block">
+            Already Registered?
+            <a *ngIf="webcast" href="javascript:;" (click)="onLoginClick()">Login NOW</a>
+          </span>
+      
+      </form>
+
+    </ng-container>
+    
+</div>
+<div class="card-body" *ngIf="page_mode=='thankyou'">
+  <div class="form-group mt-2 justify-content-center">
+    <h1 *ngIf="cForm" class="text-center heading-main mb-2 mb-2 mt-2" [style.color]="theme_color">Thank you for registering.</h1>
+    <h3 *ngIf="cForm" class="text-center heading-main mb-2 mb-4 mt-2" [style.color]="theme_color">We Will be Live soon</h3>
+    <div *ngIf="cForm" class="form-group text-center">
+      <label for="webcast_id"><b>Start Date</b>: {{cForm.webcast_start_datetime |  date:'medium'}}</label>
+    </div>
+    <div *ngIf="cForm" class="text-center form-group">
+      <label for="webcast_id"><b>Duration</b>: {{cForm.webcast_duration}} minutes</label>
+    </div>
+    <a class="btn btn-block btn-light" href="{{cForm.webcast_id}}">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Refresh Now
+    </a>
+  </div>
+</div>
+<app-otpverification *ngIf="page_mode=='verifyOtp'" (onResend)="onSubmit()" [loginField]="loginFieldCredentitals" (onBack)="hideOtpControl()" (onSuccess)="onOtpVerified()"></app-otpverification>
+

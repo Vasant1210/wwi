@@ -1,0 +1,66 @@
+<div class="modal-header">
+  <div class="title-wrapper">
+    <h5 class="modal-title">Agenda</h5>
+    <a href="javascript:void(0);" class="close-icon"  data-dismiss="modal">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="tab-menu-list list-wrapper">
+      
+    <div class="row justify-content-center">
+      <div class="col-lg-12 ">
+        <ul class="nav nav-tabs justify-content-center">
+          <li class="nav-item"  *ngFor="let all of agendas;let i = index">
+            
+            <a *ngFor="let dayagenda of all | keyvalue" class="{{i == 0 ? 'nav-link active':'nav-link' }}" id="home-tab" data-toggle="tab" href="#{{dayagenda.key}}" role="tab" aria-controls="home" aria-selected="true">{{"Day " + dayagenda.key.substring(3)}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div class="modal-body">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 ">
+      <perfect-scrollbar class="popup_scoll">
+        <div id="myTabContent" class="agenda-list tab-content">
+
+          <ng-container *ngFor="let all of agendas;let i = index">
+            <div class="{{i == 0 ? 'tab-pane fade show active':'tab-pane fade' }}" id="{{dayagenda.key}}" *ngFor="let dayagenda of all | keyvalue">
+              <div *ngFor="let agenda of dayagenda.value">
+                <div class="d-flex ">
+                  <div>
+                    <p class="agenda-date-and-time">{{agenda.start_time | date:'h:mm a '}}  - {{agenda.end_time | date:'h:mm a'}}</p>
+                  </div>
+                  <div class="agenda-buttet-icon">
+                    <img src="assets\images\agenda-bullet-point.png" width="64" height="64" />
+                  </div>
+                  <div>
+                    <p class="agenda-title">{{agenda.title}}</p>
+                    <p class="agenda-description">{{agenda.description}}</p>
+                    <p class="agenda-speakers-title" *ngIf="agenda.speakers">Speakers</p>
+                    <p *ngIf="agenda.speakers">
+                      <span class="agenda-speakers-names" *ngFor="let Speakers of agenda.speakers ; let i=index ">
+                        <span class="agenda-speakers-name">{{Speakers.spe_name}}</span>
+                      </span>
+                    </p>
+                    <ul class="agenda-speakers-images" *ngIf="agenda.speakers">
+                      <li class="agenda-speakers-images" *ngFor="let Speakers of agenda.speakers.slice().reverse() ; let j=index ">
+                        <img src="{{Speakers.spe_photo}}" class="img-fluid" />
+                        <!--<img  src="assets\images\profile-icon.jpg" />-->
+
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </perfect-scrollbar>
+    </div>
+</div>
+
+</div>

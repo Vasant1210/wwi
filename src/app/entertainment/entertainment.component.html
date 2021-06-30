@@ -1,0 +1,44 @@
+<div class="custom-modal-wrapper">
+  <div class="modal-header">
+    <h5 class="modal-title">Entertainment Zone</h5>
+    <a href="javascript:void(0);" class="close-icon" data-dismiss="modal" >
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+  </div>
+  <div class="modal-body">
+                
+              <div *ngIf="!selectedGame && games" >
+              
+                <perfect-scrollbar >
+                  <div>
+                    <section class="cards">
+                      <div class="card" [ngStyle]="getStyle()" *ngFor="let game of games">
+
+                        <img src="{{game.thumbnail}}" (click)="onSelectGame(game)" alt="" class="profile-icon">                        
+                        <span class="desc" *ngIf="game.name" for="{{game.id}}" (click)="onSelectGame(game)">{{game.name}}  </span>
+                        
+                        <div class="rounded_rectangle_wrapper">
+                          <img src="./assets/images/rounded_rectangle.png" (click)="onSelectGame(game)" alt="" class="rounded_rectangle">
+                        </div>
+                      </div><!-- /card-one -->
+                    </section>
+                  </div>
+                  </perfect-scrollbar>                 
+             
+          
+            
+
+      </div>
+    </div>
+  </div>
+<ng-container *ngIf="selectedGame">
+  <div class="galleryModalVideoPopup" id="galleryModalVideoPopup" #galleryModalVideoPopup tabindex="-1">
+    <a href="javascript:void(0);" aria-label="Close" (click)="backToGameList()" class="close-icon">
+      <img src="./assets/images/close-icon.png" alt="Close Button" />
+    </a>
+    <iframe id="gallery_currently_playing_video"
+            [src]="selectedGame.game_url | sanitize: 'resourceUrl'"
+            frameborder="0" allowfullscreen>
+    </iframe>
+  </div>
+</ng-container>

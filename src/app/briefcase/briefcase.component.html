@@ -1,0 +1,246 @@
+<div class="modal-header">
+  <div class="title-wrapper">
+      <h5 class="modal-title">Digital Briefcase</h5>
+      <a href="javascript:void(0);" #modalCloseButton data-dismiss="modal" aria-label="Close" (click)="closeModal()" class="close-icon">
+        <img src="./assets/images/close-icon.png" alt="Close Button" />
+      </a>
+    </div>
+    <div class="tab-menu-list list-wrapper">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 ">
+          <ul class="nav nav-tabs justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link active" id="notes-tab" data-toggle="tab" href="#notes" role="tab" aria-controls="notes" aria-selected="true">Notes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " id="question-tab" data-toggle="tab" href="#question" role="tab" aria-controls="question" aria-selected="true">Q&A</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " id="media-tab" data-toggle="tab" href="#business_card" role="tab" aria-controls="business_card" aria-selected="true">business Card</a>
+            </li>
+            <li  class="nav-item">
+              <a class="nav-link " id="document-tab" data-toggle="tab" href="#document" role="tab" aria-controls="document" aria-selected="true">Document</a>
+            </li>
+            <li  class="nav-item">
+              <a class="nav-link " id="media-tab" data-toggle="tab" href="#media" role="tab" aria-controls="media" aria-selected="true">Media</a>
+            </li>            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 ">
+        <perfect-scrollbar class="popup_scoll">
+          <div id="myTabContent" class="notes tab-content">
+            <div class="tab-pane fade show active" id="notes">
+                <div>
+                  <!--<div *ngIf="success" class="text-success mt-3 mb-0">{{success}}</div>-->
+                  <div *ngIf="error" class="error-text mt-3 mb-0">{{error}}</div>
+                </div>
+                <div class="row"  *ngIf="notes && !noteDetails">
+
+                      <ng-container *ngFor="let note of notes.slice().reverse() ">
+                        
+                  <div class="col-md-4 col-6">
+                    <div class="note-card" (dblclick)="showNoteDetails(note)">
+                          <div class="note-hamburger">
+                            <img src="./assets/images/note-hamburger.png" alt="" (click)="showNoteDetails(note)">
+                          </div>                         
+                          <p>{{truncateString(note.description,100) }}</p>
+                          <div class="action-icons">
+                            <ul>
+                              <li>                          
+                                <a [href]="getNoteHref(note)" (click)="updateStatBriefcase()"   download="{{note.id}}-note.txt" >
+                                  <img src="./assets/images/note-download.png" alt="Download event notes">
+                                </a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0);" (click)="deleteNote(note)">
+                                  <img src="./assets/images/note-delete.png" alt="">
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                    </div>
+                  </div>
+                      </ng-container>
+                </div>
+                <ng-container *ngIf="noteDetails">
+                  <div class="note-card note-details">
+                      <div class="note-hamburger">
+                        <a href="javascript:;" class="" (click)="showNoteDetails(null)"><img src="./assets/images/back.png" /></a>
+                      </div>
+                      <div class="detail-description">
+                        <p>{{noteDetails.description}}</p>
+                      </div>
+                      <div class="action-icons">
+                        <ul>
+                          <li>
+                            <a [href]="getNoteHref(noteDetails)" (click)="updateStatBriefcase()"  download="{{noteDetails.id}}-note.txt">
+                              <img src="./assets/images/note-download.png" alt="Download event notes">
+                            </a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" (click)="deleteNote(noteDetails)">
+                              <img src="./assets/images/note-delete.png" alt="">
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                </ng-container>
+            </div> <!--<div class="tab-pane fade show active" id="notes">-->            
+            <div class="tab-pane fade show" id="question">
+              <div class="row"  *ngIf="questions && !questionDetails">
+                <ng-container *ngFor="let question of questions.slice().reverse() ">   
+                  <div class="col-md-4 col-6">
+                    <div class="note-card" (dblclick)="showQuestionDetails(question)">
+                        <div class="note-hamburger" >
+                          <img src="./assets/images/note-hamburger.png" alt="" (click)="showQuestionDetails(question)">
+                        </div> 
+                        <p>{{truncateString(question.description,100) }}</p> 
+                        <div class="action-icons">
+                          <ul>
+                            <li>                          
+                              <a [href]="getQuestionHref(question)" (click)="updateStatBriefcase()"  download="{{question.id}}-question.txt" >
+                                <img src="./assets/images/note-download.png" alt="Download question">
+                              </a>
+                            </li>                           
+                          </ul>
+                        </div>                   
+                      </div>
+                  </div>
+                </ng-container> 
+              </div>
+              <ng-container *ngIf="questionDetails">
+                <div class="note-card"> 
+                    <div class="note-hamburger">
+                      <a href="javascript:;" class=""  (click)="showQuestionDetails(null)"><img src="./assets/images/back.png" /></a> 
+                    </div>
+                      <div class="detail-description">
+                        <p><span class="mr-2">Hall Name: </span>{{questionDetails.room.title}}</p>
+                        <p>Q. {{questionDetails.description}}</p>
+                        <p>A. {{questionDetails.answer}}</p>
+                        <div class="action-icons">
+                          <ul>
+                            <li>                          
+                              <a [href]="getQuestionHref(questionDetails)" (click)="updateStatBriefcase()"  download="{{questionDetails.id}}-question.txt" >
+                                <img src="./assets/images/note-download.png" alt="Download question">
+                              </a>
+                            </li>                           
+                          </ul>
+                        </div> 
+
+                    </div>  
+                </div>  
+              </ng-container>  
+            </div> <!--<div class="tab-pane fade show active" id="question">-->  
+           
+              <div class="tab-pane fade show digital-briefcase-business" *ngIf="business_card" id="business_card">
+                <div class="business_popup">
+              <div class="grid-rows">
+                <div class="box" *ngFor="let _business_card of business_card.slice().reverse()"  >
+                  <div class="box-content" *ngIf="_business_card.model_type=='viewer'">
+                    <div class="rows-wrap" id="businesscardId-viewer-{{_business_card.model_id}}">
+                      <div class="box-rows">
+                        <img [src]="renderDefaultProfilePic(_business_card?.cards?.profile_pic,_business_card?.cards['Full Name'])" class="profile-icon" alt="">
+                        <!-- <img src="{{user.profile_pic}}" class="profile-icon" alt="">-->
+                      </div>
+                      <div class="box-rows">
+                        <ul class="card-details">
+                          <li *ngIf="_business_card.cards['Full Name']" class="name">{{_business_card.cards['Full Name']}}</li>
+                          <li *ngIf="_business_card.cards['Designation']">{{_business_card.cards["Designation"]}}</li>
+                          <li *ngIf="_business_card.cards['Company Name']" class="company">{{_business_card.cards["Company Name"]}}</li>
+                          <li *ngIf="!_business_card.cards['Company Name']" class="company">&nbsp;</li>
+                          <li *ngIf="_business_card.cards['Work Phone Number']">{{_business_card.cards["Work Phone Number"]}}</li>
+                          <li *ngIf="!_business_card.cards['Work Phone Number']">&nbsp;</li>
+                          <li *ngIf="_business_card.cards['Work Email Id']">{{_business_card.cards["Work Email Id"]}}</li>
+                          <li *ngIf="!_business_card.cards['Work Email Id']">&nbsp;</li>
+                        </ul>
+                      </div>
+                      <div class="box-rows">
+                        <ul class="card-details">
+                          <li (click)="downloadBusinesscard('viewer',_business_card.model_id)">
+                            <img src="./assets/images/note-download.png" (click)="downloadBusinesscard('viewer',_business_card?.cards['Full Name'],_business_card.model_id)" alt="Download Business Card">
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                  </div>                  
+                  <div class="box-content" *ngIf="_business_card.model_type=='stall' && _business_card.cards.id">
+                    <div class="rows-wrap" id="businesscardId-stall-{{_business_card.cards.id}}">
+                      <div class="box-rows">
+                        <img [src]="renderDefaultProfilePic(_business_card?.cards?.profile_pic,_business_card?.cards?.name)" class="profile-icon" alt="">
+                        <!-- <img src="{{user.profile_pic}}" class="profile-icon" alt="">-->
+                      </div>
+                      <div class="box-rows">
+                        <ul class="card-details">
+                          <li class="name">{{_business_card.cards?.name}}</li>
+                          <li>{{_business_card.cards && _business_card.cards.designation && _business_card.cards.designation != "" ? _business_card.cards.designation: "&nbsp;"}}</li>
+                          <li class="company">{{_business_card.cards &&  _business_card.cards.company_name && _business_card.cards.company_name != "" ? _business_card.cards.company_name: "&nbsp;"}}</li>
+                          <li *ngIf="_business_card.cards.mobile">{{_business_card.cards.mobile}}</li>
+                          <li *ngIf="!_business_card.cards.mobile">{{_business_card.cards.mobile}}</li>
+                          <li *ngIf="_business_card.cards.email">{{_business_card.cards.email}}</li>
+                          <li *ngIf="!_business_card.cards.email">{{_business_card.cards.email}}</li>
+                        </ul>
+                      </div>
+                      <div class="box-rows">
+                        <ul class="card-details">
+                          <li (click)="downloadBusinesscard('stall',_business_card.cards.id)">
+                            <img src="./assets/images/note-download.png" (click)="downloadBusinesscard('stall',_business_card?.cards?.name,_business_card.cards.id)" alt="Download Business Card">
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div> <!-- box --> 
+                
+              </div></div>
+            </div> 
+
+              <div class="tab-pane fade show experience-page digital-briefcase" *ngIf="viewer_document && hasWidget('experience_zone')" id="document">
+                <div class="grid-rows">
+                  <div class="box" *ngFor="let _viewer_document of viewer_document.slice().reverse()">
+                      <div class="box-content">
+                          <div class="rows-wrap _media" (dblclick)="openDocumnet(_viewer_document.media.file_name)">
+                              <div class="box-rows cursor-pointer">
+                                  <img src="./assets/images/doc.svg" class="doc" alt="">
+                              </div>
+                              <div class="box-rows">
+                                  <h5 class="desc cursor-pointer">{{ _viewer_document.media?.name }}</h5>
+                              </div>
+                              <div class="box-rows">
+                                  <ul class="links">
+                                      <li>
+                                          <a href="{{_viewer_document.media.file_name}}" (click)="updateStatBriefcase()" download target="_blank">
+                                              <img src="./assets/images/download.svg" alt="">
+                                              <span>DOWNLOAD</span>
+                                          </a>
+                                      </li>
+                                      <li>
+                                        <a href="javascript:void(0);" (click)="deleteViewerMedia(_viewer_document.media)">
+                                          <img src="./assets/images/note-delete.png" alt="">
+                                        </a>
+                                      </li>                                                                         
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                  </div> <!-- box -->                
+              </div>            
+              </div> <!--<div class="tab-pane fade show active" id="media">-->             
+
+            <div class="tab-pane fade show experience-page digital-briefcase" *ngIf="(viewer_media || viewer_vmedia)" id="media">
+              <app-shared-gallery [images]="viewer_mmedia" [videos]="viewer_vmedia"  [canDownload]="true" [canDelete]="true" (onDelete)="deleteViewerMedia($event)" ></app-shared-gallery>
+            </div> <!--<div class="tab-pane fade show active" id="media">--> 
+         
+          </div><!--myTabContent-->
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+

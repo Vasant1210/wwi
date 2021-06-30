@@ -1,0 +1,56 @@
+<div class="popup-wrap business_popup popup_opened" *ngIf="representative">
+  <div class="_cont">
+    <h3 class="title">BUSINESS CARD EXCHANGED</h3>
+
+    <div class="grid-rows">
+      <div class="box" *ngIf="profile">
+        <div class="box-content">
+          <div class="rows-wrap">
+            <div class="box-rows" >
+              <img [src]="renderDefaultProfilePic(profile?.profile_pic,profile['Full Name'])" class="profile-icon" alt="">
+             <!-- <img src="{{user.profile_pic}}" class="profile-icon" alt="">-->
+            </div>
+            <div class="box-rows">
+              <ul class="card-details">  
+                <li *ngIf="profile['Full Name']" class="name">{{profile["Full Name"]}}</li>
+                <li *ngIf="profile['Designation']">{{profile["Designation"]}}</li>
+                <li *ngIf="profile['Company Name']" class="company">{{profile["Company Name"]}}</li>
+                <li *ngIf="profile['Work Phone Number']">{{profile["Work Phone Number"]}}</li>
+                <li *ngIf="profile['Work Email Id']">{{profile["Work Email Id"]}}</li>
+              </ul>
+            </div>            
+          </div>
+        </div>
+      </div> <!-- box -->
+
+      <div class="box" *ngIf="representative">
+        <div class="box-content">
+          <div class="rows-wrap">
+            <div class="box-rows">
+               <img [src]="renderDefaultProfilePic(representative?.profile_pic,representative?.name)" class="profile-icon" alt="">
+            </div>
+            <div class="box-rows">
+              <ul class="card-details">
+               <!-- <li class="name">JOHN APPLESSED</li>
+                <li>Marketing Manager</li>               
+                <li class="company">Taj Hotel</li>               
+                <li>+91 9632587410</li>
+                <li>joaaplessed@gmail.com</li>-->
+                <li class="name">{{representative?.name}}</li>
+                <li>{{representative?.designation}}</li>
+                <li class="company">{{representative?.company_name}}</li>
+                <li>{{representative?.mobile}}</li>
+                <li>{{representative?.email}}</li> 
+              </ul>
+            </div>           
+          </div>
+        </div>
+      </div> <!-- box -->
+    </div>
+
+    <div class="summary">
+      You can find these business card on "Digital Briefcase" Section
+    </div>
+    <a href="javascript:void(0)" (click)="closePopup()" class="btn">GOT IT</a>
+  </div>
+</div>

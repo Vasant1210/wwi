@@ -1,0 +1,34 @@
+.tbg {
+  height: 720px;
+  width: 400px;
+  background-color: #fff;
+  margin: 0 auto;
+  border: 1px solid #c0c0c0;
+}
+
+.tbgwrap {
+  padding: 10px;
+}
+.header_speednetworking
+{
+    position:absolute;
+    top:5vh;
+    left:30vh;
+    z-index:9999;
+    text-decoration:none;
+}
+.header_speednetworking img{
+  height:2em;
+}
+.header_speednetworking span{
+  color: #fff;
+  font-size: 1.5em;
+}
+.fullPagePopup
+{
+    z-index:9999 !important;
+}
+.ngx-guided-tour .tour-step .tour-buttons button.skip-button.link-button
+{
+  display:none !important;
+}
